@@ -1,11 +1,15 @@
 import Vue from 'vue'
-import App from './App.vue'
+import TakingMaking from './classes/TakingMaking'
+
+window.TakingMaking = TakingMaking;
 
 Vue.config.productionTip = false
 
+var tm = new TakingMaking({
+  selector: "#app",
+  output: "#output"
+})
 
-
-
-new Vue({
-  render: h => h(App)
-}).$mount('#app')
+tm.changed(function(blocks) {
+  console.log('changed//////');
+})

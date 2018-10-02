@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex">
+  <div>
     <div class="main-side">
       <BlocksContainer lockAxis="y" :useDragHandle="true" v-model="blocks">
         <BlockItem v-for="(block, index) in blocks" :index="index" :key="index" v-model="blocks[index]" :blocks="blocks" />
@@ -8,21 +8,31 @@
 
       <div class="card">
         <div class="card-body text-center">
-          <button class="btn btn-sm btn-success">&#10133;</button>
+            <popper trigger="click" :options="{placement: 'bottom'}">
+              <div class="popper">
+                <a href="#" v-on:click="addBlock">Add</a>
+              </div>
+
+              <button class="btn btn-sm btn-success" slot="reference">&#10133;</button> 
+            </popper>
         </div>
       </div>
-      <pre>{{blocks}}</pre>
+
+      <details class="mt-5">
+        <summary>Blocks</summary>
+        <pre>{{blocks}}</pre>
+      </details>
     </div>
 
-    <div class="right-side">
-      <a href="#" v-on:click="addBlock">Add</a>
-    </div>
   </div>
 </template>
 
 <script>
 import BlocksContainer from "./BlocksContainer"
 import BlockItem from "./BlockItem"
+import popper from 'vue-popperjs';
+import 'vue-popperjs/dist/css/vue-popper.css';
+import EventBus from '../classes/EventBus';
 
 export default {
   data() {
@@ -40,23 +50,28 @@ export default {
     }
   },
   components: {
-    BlocksContainer, BlockItem
+    BlocksContainer, BlockItem, popper
   },
   methods: {
     addBlock() {
       this.blocks.push(Object.assign({}, this.blocks[0]))
+    }
+  },
+  watch: {
+    blocks: {
+      handler: function(newBlocks) {
+        EventBus.$emit('blocksChanged', newBlocks);
+      },
+      immediate: true,
+      deep: true
     }
   }
 }
 </script>
 
 <style>
-.right-side {
-  flex: 0 0 200px;
-  margin-left: 20px;
-}
-
 .main-side {
-  flex: 0 0 680px;
+  width: 680px;
+  margin: auto;
 }
 </style>

@@ -44,7 +44,7 @@ export default {
     }
   },
   methods: {
-    remove(e) {
+    remove() {
       if (this.isActiveRemoveButton) {
         this.blocks.splice(this.index, 1)
       } else {

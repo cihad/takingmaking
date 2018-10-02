@@ -1,5 +1,6 @@
 <template>
-  <div id="app" class="main-wrapper">
+  <div class="main-wrapper">
+    {{msg}}
     <html>
     <body>
       <Blocks /> 
@@ -13,6 +14,9 @@ import Blocks from './components/Blocks.vue'
 
 export default {
   name: 'app',
+  props: {
+    msg: String
+  },
   components: {
     Blocks
   }

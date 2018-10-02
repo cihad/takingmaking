@@ -14,6 +14,7 @@
     "vue": "^2.5.17",
     "vue-ckeditor2": "^2.0.9",
     "vue-ckeditor5": "^0.3.0",
+    "vue-popperjs": "^1.5.3",
     "vue-slicksort": "^0.1.10",
     "vue2-medium-editor": "^1.1.5",
     "vuedraggable": "^2.16.0"
