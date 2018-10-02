@@ -1,28 +1,33 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="main-wrapper">
+    <html>
+    <body>
+      <Blocks /> 
+    </body>
+    </html>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Blocks from './components/Blocks.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Blocks
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped lang="scss">
+.main-wrapper /deep/ {
+  @import "~bootstrap/dist/css/bootstrap.min";
+
+  .btn-xs {
+    padding: .125rem .25rem;
+    font-size: .75rem;
+    line-height: 1.5;
+    border-radius: .15rem;
+  }
 }
 </style>
