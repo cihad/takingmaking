@@ -10,7 +10,10 @@
         <div class="card-body text-center">
             <popper trigger="click" :options="{placement: 'bottom'}">
               <div class="popper">
-                <a href="#" v-on:click="addBlock">Add</a>
+                <template v-for="(block, i) in bus.blocks">
+                  <a href="#" v-on:click="addBlock(block)">{{ block.name }}</a>
+                </template>
+
               </div>
 
               <button class="btn btn-sm btn-success" slot="reference">&#10133;</button> 
@@ -37,24 +40,16 @@ import EventBus from '../classes/EventBus';
 export default {
   data() {
     return {
-      blocks: [
-        {
-          name: "TMParagraph",
-          content: "Merhaba"
-        },
-        {
-          name: "TMParagraph",
-          content: "Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir."
-        }
-      ]
+      bus: EventBus,
+      blocks: []
     }
   },
   components: {
     BlocksContainer, BlockItem, popper
   },
   methods: {
-    addBlock() {
-      this.blocks.push(Object.assign({}, this.blocks[0]))
+    addBlock(block) {
+      this.blocks.push(Object.assign({}, block))
     }
   },
   watch: {

@@ -7,6 +7,12 @@
 import editor from 'vue2-medium-editor'
 import 'medium-editor/dist/css/medium-editor.css'
 import 'medium-editor/dist/css/themes/beagle.css'
+import EventBus from '../classes/EventBus';
+
+EventBus.registerBlock({
+  name: "TMParagraph",
+  content: "Merhaba"
+})
 
 export default {
   props: {
