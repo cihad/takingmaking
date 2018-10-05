@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="main-side">
-      <BlocksContainer lockAxis="y" :useDragHandle="true" v-model="blocks">
+      <BlocksContainer lockAxis="y" appendTo=".main-wrapper html body" :useDragHandle="true" v-model="blocks">
         <BlockItem v-for="(block, index) in blocks" :index="index" :key="index" v-model="blocks[index]" :blocks="blocks" />
       </BlocksContainer>
 

@@ -15,7 +15,7 @@
     "vue-ckeditor2": "^2.0.9",
     "vue-ckeditor5": "^0.3.0",
     "vue-popperjs": "^1.5.3",
-    "vue-slicksort": "^0.1.10",
+    "vue-slicksort": "cihad/vue-slicksort#appendTo",
     "vue2-medium-editor": "^1.1.5",
     "vuedraggable": "^2.16.0"
   },
