@@ -1,13 +1,14 @@
 <template>
   <div  class="item"
         v-on:mouseenter="isToolbarActive = true"
-        v-on:mouseleave="isToolbarActive = false; isActiveRemoveButton = false">
+        v-on:mouseleave="leaveBlock"
+        v-on-clickaway="away">
     <div v-handle class="handle top"></div>
     <div v-handle class="handle bottom"></div>
     <div v-handle class="handle right"></div>
     <div v-handle class="handle left"></div>
 
-    <div class="toolbar" :class="{ active: isToolbarActive }">
+    <div class="toolbar btn-group" :class="{ active: isToolbarActive }">
       <a  href="#"
           class="btn btn-xs"
           :class="{ 'btn-secondary': !isActiveRemoveButton, 'btn-danger': isActiveRemoveButton }"
@@ -15,7 +16,25 @@
         <span>&#10005;</span>
         <span v-show="isActiveRemoveButton">remove</span>
       </a>
+
+      <a  href="#"
+          class="btn btn-xs btn-secondary"
+          v-on:click="showOptions = !showOptions">
+        conf
+      </a>
+
+      <a  href="#"
+          class="btn btn-xs btn-secondary"
+          v-handle>
+        move
+      </a>
     </div>
+
+    <Tooltip :show="showOptions && isToolbarActive">
+      <component  :is="value.optionsName"
+                  v-model="value" />
+    </Tooltip>
+
 
     <component  :is="value.name"
                 v-model="value"
@@ -25,7 +44,10 @@
 
 <script>
 import TMParagraph from "./TMParagraph.vue"
+import TMParagraphOptions from "./TMParagraphOptions.vue"
 import { ElementMixin, HandleDirective } from 'vue-slicksort';
+import Tooltip from './Tooltip';
+import { directive as onClickaway } from 'vue-clickaway';
 
 export default {
   mixins: [ElementMixin],
@@ -34,13 +56,14 @@ export default {
     value: Object
   },
   components: {
-    TMParagraph
+    TMParagraph, Tooltip, TMParagraphOptions
   },
-  directives: { handle: HandleDirective },
+  directives: { handle: HandleDirective, onClickaway },
   data() {
     return {
       isToolbarActive: false,
-      isActiveRemoveButton: false
+      isActiveRemoveButton: false,
+      showOptions: false
     }
   },
   methods: {
@@ -49,6 +72,19 @@ export default {
         this.blocks.splice(this.index, 1)
       } else {
         this.isActiveRemoveButton = true
+      }
+    },
+    leaveBlock() {
+      if (!this.showOptions) {
+        this.isToolbarActive = false;
+        this.isActiveRemoveButton = false;
+      }
+    },
+    away() {
+      this.isToolbarActive = false
+
+      if (this.showOptions) {
+        this.showOptions = false
       }
     }
   }
@@ -95,15 +131,15 @@ export default {
 }
 
 .toolbar {
-  position: absolute;
-  top: 0;
-  right: 20px;
-  display: none;
+  position: absolute !important;
+  top: -14px;
+  right: 10px;
+  display: none !important;
   transition: all 2s;
 }
 
 .toolbar.active {
-  display: flex;
+  display: flex !important;
   justify-content: flex-end;
 }
 

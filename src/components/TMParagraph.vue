@@ -1,6 +1,8 @@
 <template>
-  <medium-editor :text='value.content' v-on:edit='processEditOperation' :options="options">
-  </medium-editor>
+  <div :style="{ fontSize: value.options.fontSize + 'px' }">
+    <medium-editor :text='value.content' v-on:edit='processEditOperation' :options="options">
+    </medium-editor>
+  </div>
 </template>
 
 <script>
@@ -11,7 +13,11 @@ import EventBus from '../classes/EventBus';
 
 EventBus.registerBlock({
   name: "TMParagraph",
-  content: "Merhaba"
+  optionsName: "TMParagraphOptions",
+  content: "Merhaba",
+  options: {
+    fontSize: 20
+  }
 })
 
 export default {
@@ -38,7 +44,7 @@ export default {
 </script>
 
 <style scoped>
-[data-hovered=true] {
+[data-hovered=true] div {
   outline: 1px solid #9FDFFF  ;
 }
 
