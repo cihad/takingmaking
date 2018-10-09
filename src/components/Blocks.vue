@@ -1,31 +1,30 @@
 <template>
   <div>
-    <div class="main-side">
-      <BlocksContainer lockAxis="y" appendTo=".main-wrapper html body" :useDragHandle="true" v-model="blocks">
-        <BlockItem v-for="(block, index) in blocks" :index="index" :key="index" v-model="blocks[index]" :blocks="blocks" />
-      </BlocksContainer>
+    <BlocksContainer lockAxis="y" appendTo=".main-wrapper html body" :useDragHandle="true" v-model="blocks" helperClass="sorting">
+      <BlockItem v-for="(block, index) in blocks" :index="index" :key="index" v-model="blocks[index]" :blocks="blocks" />
+    </BlocksContainer>
 
+    <hr>
 
-      <div class="card">
-        <div class="card-body text-center">
-            <popper trigger="click" :options="{placement: 'bottom'}">
-              <div class="popper">
-                <template v-for="(block, i) in bus.blocks">
-                  <a href="#" v-on:click="addBlock(block)">{{ block.name }}</a>
-                </template>
+    <div class="card">
+      <div class="card-body text-center">
+          <popper trigger="click" :options="{placement: 'bottom'}">
+            <div class="popper">
+              <template v-for="(block, i) in bus.blocks">
+                <a href="#" v-on:click="addBlock(block)">{{ block.name }}</a>
+              </template>
 
-              </div>
+            </div>
 
-              <button class="btn btn-sm btn-success" slot="reference">&#10133;</button> 
-            </popper>
-        </div>
+            <button class="btn btn-sm btn-success" slot="reference">&#10133;</button> 
+          </popper>
       </div>
-
-      <details class="mt-5">
-        <summary>Blocks</summary>
-        <pre>{{blocks}}</pre>
-      </details>
     </div>
+
+    <details class="mt-5">
+      <summary>Blocks</summary>
+      <pre>{{blocks}}</pre>
+    </details>
 
   </div>
 </template>
@@ -49,7 +48,7 @@ export default {
   },
   methods: {
     addBlock(block) {
-      this.blocks.push(Object.assign({}, block))
+      this.blocks.push(JSON.parse(JSON.stringify(block)))
     }
   },
   watch: {
@@ -65,8 +64,4 @@ export default {
 </script>
 
 <style>
-.main-side {
-  width: 680px;
-  margin: auto;
-}
 </style>

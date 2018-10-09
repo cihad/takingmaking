@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import TakingMaking from './classes/TakingMaking'
 
-window.TakingMaking = TakingMaking;
-
 Vue.config.productionTip = false
+
+window.TakingMaking = TakingMaking;
 
 var tm = new TakingMaking({
   selector: "#app",
-  output: "#output"
+  output: "#output" 
 })
 
 tm.changed(function(blocks) {

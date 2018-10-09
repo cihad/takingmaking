@@ -2,8 +2,6 @@ import Vue from 'vue'
 import App from '../App.vue'
 import EventBus from './EventBus.js'
 
-Vue.config.productionTip = false
-
 export default class TakingMaking {
   constructor(config) {
     this.selector = config.selector;
