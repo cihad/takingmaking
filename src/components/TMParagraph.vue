@@ -1,6 +1,10 @@
 <template>
   <div :style="{ fontSize: value.options.fontSize + 'px' }">
-    <medium-editor :text='value.content' v-on:edit='processEditOperation' :options="options">
+    <medium-editor :text='value.content'
+                    v-on:edit='processEditOperation'
+                    :options="options"
+                    v-on:focus.native="focus"
+                    v-on:blur.native="blur">
     </medium-editor>
   </div>
 </template>
@@ -16,7 +20,7 @@ EventBus.registerBlock({
   optionsName: "TMParagraphOptions",
   content: "Merhaba",
   options: {
-    fontSize: 20
+    fontSize: null
   }
 })
 
@@ -30,15 +34,30 @@ export default {
   methods: {
     processEditOperation: function (operation) {
       this.value.content = operation.api.origElements.innerHTML
+    },
+    focus() {
+      this.$emit('focus')
+    },
+    blur() {
+      this.$emit('blur')
     }
   },
   data() {
     return {
       options: {
         placeholder: false,
-        disableReturn: true
+        disableReturn: true,
+        toolbar: {
+          buttons: ['bold', 'italic', 'underline', 'anchor'],
+
+        }
       }
     }
+  },
+  mounted() {
+    let computedStyles = window.getComputedStyle(this.$el);
+    this.value.options.fontSize = parseInt(computedStyles.fontSize)
+    // this.$emit('input')
   }
 }
 </script>
@@ -48,7 +67,9 @@ export default {
   outline: 1px solid #9FDFFF  ;
 }
 
-[contenteditable]:focus {
+.sorting div,
+[contenteditable]:focus,
+[data-active=true] div {
   outline: 1px solid #00aaff;
 }
 

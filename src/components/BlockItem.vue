@@ -1,50 +1,57 @@
 <template>
   <div  class="item"
-        v-on:mouseenter="isToolbarActive = true"
+        v-on:mouseenter="state.hover = !state.focus"
         v-on:mouseleave="leaveBlock"
-        v-on-clickaway="away">
+        v-on-clickaway="clickaway"
+        v-on:mousedown="state.focus = true">
     <div v-handle class="handle top"></div>
     <div v-handle class="handle bottom"></div>
     <div v-handle class="handle right"></div>
     <div v-handle class="handle left"></div>
 
-    <div class="toolbar btn-group" :class="{ active: isToolbarActive }">
+    <div class="toolbar btn-group" v-if="state.hover || state.focus">
       <a  href="#"
-          class="btn btn-xs"
-          :class="{ 'btn-secondary': !isActiveRemoveButton, 'btn-danger': isActiveRemoveButton }"
+          class="btn btn-xs btn-primary"
+          :class="{ 'btn-light-blue': lightBlue, 'btn-danger': state.showRemove }"
           v-on:click="remove">
         <span>&#10005;</span>
-        <span v-show="isActiveRemoveButton">remove</span>
+        <span v-show="state.showRemove">remove</span>
       </a>
 
       <a  href="#"
-          class="btn btn-xs btn-secondary"
-          v-on:click="showOptions = !showOptions">
+          class="btn btn-xs btn-primary"
+          :class="{ 'btn-light-blue': lightBlue }"
+          v-on:click="state.showOptions = !state.showOptions">
         conf
       </a>
 
       <a  href="#"
-          class="btn btn-xs btn-secondary"
+          class="btn btn-xs btn-primary"
+          :class="{ 'btn-light-blue': lightBlue }"
           v-handle>
         move
       </a>
     </div>
 
-    <Tooltip :show="showOptions && isToolbarActive">
+    <Tooltip :show="state.showOptions">
       <component  :is="value.optionsName"
                   v-model="value" />
     </Tooltip>
 
-
     <component  :is="value.name"
                 v-model="value"
-                :data-hovered="isToolbarActive" />
+                :data-hovered="state.hover"
+                :data-active="state.focus || state.showOptions"
+                v-on:focus="focus"
+                v-on:blur="blur" />
   </div>
 </template>
 
 <script>
 import TMParagraph from "./TMParagraph.vue"
 import TMParagraphOptions from "./TMParagraphOptions.vue"
+import TMButton from "./TMButton.vue"
+import TMButtonOptions from "./TMButtonOptions.vue"
 import { ElementMixin, HandleDirective } from 'vue-slicksort';
 import Tooltip from './Tooltip';
 import { directive as onClickaway } from 'vue-clickaway';
@@ -56,36 +63,58 @@ export default {
     value: Object
   },
   components: {
-    TMParagraph, Tooltip, TMParagraphOptions
+    TMParagraph, Tooltip, TMParagraphOptions, TMButton, TMButtonOptions
   },
   directives: { handle: HandleDirective, onClickaway },
   data() {
     return {
-      isToolbarActive: false,
-      isActiveRemoveButton: false,
-      showOptions: false
+      state: {
+        focus: false,
+        hover: false,
+        showOptions: false,
+        showRemove: false,
+      }
     }
   },
   methods: {
     remove() {
-      if (this.isActiveRemoveButton) {
+      console.log('BlockItem remove')
+      if (this.state.showRemove) {
         this.blocks.splice(this.index, 1)
       } else {
-        this.isActiveRemoveButton = true
+        this.state.showRemove = true
       }
     },
     leaveBlock() {
-      if (!this.showOptions) {
-        this.isToolbarActive = false;
-        this.isActiveRemoveButton = false;
+      console.log('BlockItem leaveBlock')
+      if (!this.state.showOptions) {
+        this.state.hover = false;
+        this.state.showRemove = false;
       }
     },
-    away() {
-      this.isToolbarActive = false
+    clickaway() {
+      console.log('BlockItem clickaway')
+      this.state.hover = false
+      this.state.focus = false
 
-      if (this.showOptions) {
-        this.showOptions = false
+      if (this.state.showOptions) {
+        this.state.showOptions = false
       }
+    },
+    focus() {
+      console.log('BlockItem focus')
+      this.state.focus = true
+      this.state.hover = false
+    },
+    blur() {
+      console.log('BlockItem blur')
+      this.state.hover = true
+      this.state.focus = false
+    },
+  },
+  computed: {
+    lightBlue() {
+      return this.state.hover && !this.state.focus && !this.state.showOptions
     }
   }
 }
@@ -94,9 +123,8 @@ export default {
 <style>
 .item {
   position: relative;
-  padding: 10px;
-  margin: 0 -10px;
 }
+
 .item > .handle {
   position: absolute;
   cursor: move;
@@ -104,43 +132,61 @@ export default {
 
 .item > .handle.top {
   height: 10px;
-  top: 0;
+  top: -5px;
   right: 0;
   left: 0;
 }
 
 .item > .handle.bottom {
   height: 10px;
-  bottom: 0;
+  bottom: -5px;
   right: 0;
   left: 0;
 }
 
 .item > .handle.left {
   width: 10px;
-  left: 0;
+  left: -5px;
   top: 0;
   bottom: 0;
 }
 
 .item > .handle.right {
   width: 10px;
-  right: 0;
+  right: -5px;
   top: 0;
   bottom: 0;
 }
 
 .toolbar {
   position: absolute !important;
-  top: -14px;
-  right: 10px;
-  display: none !important;
+  top: -25px;
+  right: 0;
   transition: all 2s;
-}
-
-.toolbar.active {
   display: flex !important;
   justify-content: flex-end;
+}
+
+.btn-light-blue {
+  background-color: #9FDFFF !important;
+  border-color: #9FDFFF !important;
+}
+
+.sorting .btn-light-blue {
+  background-color: #007bff !important;
+  border-color: #007bff !important; 
+}
+
+.toolbar.btn-group > .btn:last-child {
+  border-bottom-right-radius: 0;
+}
+
+.toolbar.btn-group > .btn:first-child {
+  border-bottom-left-radius: 0;
+}
+
+.toolbar.btn-group {
+  margin-right: -1px;
 }
 
 .remove-button {

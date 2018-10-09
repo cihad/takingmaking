@@ -1,8 +1,6 @@
 <template>
-  <div class="card card-options text-white bg-dark" v-show="show">
-    <div class="card-body">
-      <slot />
-    </div>
+  <div class="text-white bg-dark p-2 rounded" v-show="show">
+    <slot />
   </div>
 </template>
 
@@ -17,7 +15,7 @@ export default {
   mounted() {
 
     new Popper(this.$parent.$el, this.$el, {
-      placement: 'right'
+      placement: 'right-start'
     })
 
   }
@@ -26,7 +24,4 @@ export default {
 </script>
 
 <style>
-.card-options .card-body {
-  padding: .75rem !important;
-}
 </style>

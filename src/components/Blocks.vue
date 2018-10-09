@@ -1,9 +1,10 @@
 <template>
   <div>
-    <BlocksContainer lockAxis="y" appendTo=".main-wrapper html body" :useDragHandle="true" v-model="blocks">
+    <BlocksContainer lockAxis="y" appendTo=".main-wrapper html body" :useDragHandle="true" v-model="blocks" helperClass="sorting">
       <BlockItem v-for="(block, index) in blocks" :index="index" :key="index" v-model="blocks[index]" :blocks="blocks" />
     </BlocksContainer>
 
+    <hr>
 
     <div class="card">
       <div class="card-body text-center">
@@ -48,9 +49,6 @@ export default {
   methods: {
     addBlock(block) {
       this.blocks.push(JSON.parse(JSON.stringify(block)))
-    },
-    clicked() {
-      console.log('////////////////////')
     }
   },
   watch: {
