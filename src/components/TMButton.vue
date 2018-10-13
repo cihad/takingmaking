@@ -1,6 +1,6 @@
 <template>
-  <div v-on:click="focus">
-    <a :href="value.buttonUrl" class="btn" :class="[buttonClass, blockClass]">
+  <div v-on:click="focus" style="text-align: center">
+    <a :href="value.buttonUrl" class="btn" :class="[buttonClass, blockClass]" v-on:click.prevent>
       {{ value.buttonText }}
     </a>
   </div>
@@ -8,12 +8,13 @@
 
 <script>
 import EventBus from '../classes/EventBus';
+import Block from './Block';
 
 EventBus.registerBlock({
   name: "TMButton",
   optionsName: "TMButtonOptions",
   buttonText: "Merhaba",
-  buttonUrl: "example.com",
+  buttonUrl: "example.com", 
   options: {
     color: 'primary',
     outline: false,
@@ -22,6 +23,7 @@ EventBus.registerBlock({
 })
 
 export default {
+  mixins: [Block],
   props: {
     value: Object,
   },
@@ -46,11 +48,19 @@ export default {
       }
 
       return str
+    },
+    toS() {
+      let template = `
+<div style="text-align: center;">
+  <a href="${this.value.buttonUrl}" class="btn ${this.buttonClass} ${this.blockClass}">
+    ${this.value.buttonText}
+  </a>
+</div>`
+      return template
     }
   },
   methods: {
     focus() {
-      console.log('cccccccccccccccccccccccccccccc')
       this.$emit('focus')
     }
   },

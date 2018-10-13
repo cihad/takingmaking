@@ -16,8 +16,8 @@ export default class TakingMaking {
 
     var _this = this;
 
-    EventBus.$on('blocksChanged', function(blocks) {
-      document.querySelector(_this.output).value = JSON.stringify(blocks, undefined, 2)
+    EventBus.$on('blocksHtmlChanged', function(newHtml) {
+      document.querySelector(_this.output).value = newHtml
     })
   }
 

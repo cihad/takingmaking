@@ -1,7 +1,7 @@
 <template>
   <div>
     <BlocksContainer lockAxis="y" appendTo=".main-wrapper html body" :useDragHandle="true" v-model="blocks" helperClass="sorting">
-      <BlockItem v-for="(block, index) in blocks" :index="index" :key="index" v-model="blocks[index]" :blocks="blocks" />
+      <BlockItem v-for="(block, index) in blocks" :index="index" :key="index" v-model="blocks[index]" :blocks="blocks" ref="block" />
     </BlocksContainer>
 
     <hr>
@@ -40,7 +40,8 @@ export default {
   data() {
     return {
       bus: EventBus,
-      blocks: []
+      blocks: [],
+      html: ""
     }
   },
   components: {
@@ -54,6 +55,23 @@ export default {
   watch: {
     blocks: {
       handler: function(newBlocks) {
+        var _this = this;
+
+        this.$nextTick(function() {
+          if (_this.$refs.block) {
+            _this.html = ""
+            _this.$refs.block.forEach(function(block, i) {
+              block.$children.forEach(function(blc) {
+                if (typeof blc.toS == 'string') {
+                  _this.html += blc.toS
+                }
+              })
+            })
+          }
+
+          EventBus.$emit('blocksHtmlChanged', _this.html);
+        })
+
         EventBus.$emit('blocksChanged', newBlocks);
       },
       immediate: true,

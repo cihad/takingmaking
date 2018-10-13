@@ -14,6 +14,7 @@ import editor from 'vue2-medium-editor'
 import 'medium-editor/dist/css/medium-editor.css'
 import 'medium-editor/dist/css/themes/beagle.css'
 import EventBus from '../classes/EventBus';
+import Block from './Block';
 
 EventBus.registerBlock({
   name: "TMParagraph",
@@ -25,6 +26,7 @@ EventBus.registerBlock({
 })
 
 export default {
+  mixins: [Block],
   props: {
     value: Object,
   },
@@ -42,6 +44,16 @@ export default {
       this.$emit('blur')
     }
   },
+  computed: {
+    toS() {
+      let template = `
+<div style="font-size: ${this.value.options.fontSize}px">
+  ${this.value.content}
+</div>`
+
+      return template
+    }
+  },
   data() {
     return {
       options: {
@@ -57,7 +69,6 @@ export default {
   mounted() {
     let computedStyles = window.getComputedStyle(this.$el);
     this.value.options.fontSize = parseInt(computedStyles.fontSize)
-    // this.$emit('input')
   }
 }
 </script>

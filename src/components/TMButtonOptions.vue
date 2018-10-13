@@ -1,6 +1,11 @@
 <template>
   <div>
     <div class="form-group">
+      <label for="buttonText">Button Text</label>
+      <input type="text" class="form-control" v-model="value.buttonText">
+    </div>
+
+    <div class="form-group">
       <label for="font-size">Color:</label>
       <select v-model="value.options.color" class="form-control">
         <option>primary</option>
