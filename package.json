@@ -20,7 +20,7 @@
     "vue-ckeditor5": "^0.3.0",
     "vue-clickaway": "^2.2.2",
     "vue-popperjs": "^1.5.3",
-    "vue-slicksort": "cihad/vue-slicksort#appendTo",
+    "vue-slicksort": "github:cihad/vue-slicksort#appendTo",
     "vue2-medium-editor": "^1.1.5",
     "vuedraggable": "^2.16.0"
   },

@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       bus: EventBus,
-      blocks: [],
+      cihad: EventBus.cihad,
       html: ""
     }
   },
@@ -49,11 +49,11 @@ export default {
   },
   methods: {
     addBlock(block) {
-      this.blocks.push(JSON.parse(JSON.stringify(block)))
+      this.cihad.push(JSON.parse(JSON.stringify(block)))
     }
   },
   watch: {
-    blocks: {
+    cihad: {
       handler: function(newBlocks) {
         var _this = this;
 
@@ -82,4 +82,115 @@ export default {
 </script>
 
 <style>
+.card .popper__arrow {
+  display: none;
+}
+
+.card[x-placement] {
+  width: 25vw;
+}
+
+.card[x-placement]::after,
+.card[x-placement]::before {
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.card[x-placement^="top"] {
+  margin-bottom: 5px;
+}
+
+.card[x-placement^="top"]::after,
+.card[x-placement^="top"]::before {
+  top: 100%;
+  left: 50%;
+}
+
+.card[x-placement^="top"]::after  {
+  border-color: rgba(255, 255, 255, 0);
+  border-top-color: #343a40;
+  border-width: 5px;
+  margin-left: -5px;
+}
+  
+.card[x-placement^="top"]::before  {
+  border-color: rgba(0, 0, 0, 0);
+  border-top-color: #000000;
+  border-width: 6px;
+  margin-left: -6px;
+}
+
+.card[x-placement^="bottom"] {
+  margin-top: 5px;
+}
+
+.card[x-placement^="bottom"]::after,
+.card[x-placement^="bottom"]::before {
+  bottom: 100%;
+  left: 50%;
+}
+
+.card[x-placement^="bottom"]::after {
+  border-color: rgba(255, 255, 255, 0);
+  border-bottom-color: #343a40;
+  border-width: 5px;
+  margin-left: -5px;
+}
+.card[x-placement^="bottom"]::before {
+  border-color: rgba(0, 0, 0, 0);
+  border-bottom-color: #000000;
+  border-width: 6px;
+  margin-left: -6px;
+}
+
+.card[x-placement^="right"] {
+  margin-left: 5px;
+}
+
+.card[x-placement^="right"]::after,
+.card[x-placement^="right"]::before {
+  right: 100%;
+  top: 50%;
+}
+
+.card[x-placement^="right"]::after {
+  border-color: rgba(255, 255, 255, 0);
+  border-right-color: #343a40;
+  border-width: 5px;
+  margin-top: -5px;
+}
+.card[x-placement^="right"]::before {
+  border-color: rgba(0, 0, 0, 0);
+  border-right-color: #000000;
+  border-width: 6px;
+  margin-top: -6px;
+}
+
+.card[x-placement^="left"] {
+  margin-right: 5px;
+}
+
+.card[x-placement^="left"]::after,
+.card[x-placement^="left"]::before {
+  left: 100%;
+  top: 50%;
+}
+
+.card[x-placement^="left"]::after {
+  border-color: rgba(255, 255, 255, 0);
+  border-left-color: #343a40;
+  border-width: 5px;
+  margin-top: -5px;
+}
+
+.card[x-placement^="left"]::before {
+  border-color: rgba(0, 0, 0, 0);
+  border-left-color: #000000;
+  border-width: 6px;
+  margin-top: -6px;
+}
 </style>
