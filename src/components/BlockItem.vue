@@ -9,7 +9,7 @@
     <div v-handle class="handle right"></div>
     <div v-handle class="handle left"></div>
 
-    <div class="toolbar btn-group" v-if="state.hover || state.focus">
+    <div class="vtm toolbar btn-group" v-if="state.hover || state.focus">
       <a  href="#"
           class="btn btn-xs btn-primary"
           :class="{ 'btn-light-blue': lightBlue, 'btn-danger': state.showRemove }"

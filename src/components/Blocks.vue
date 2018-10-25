@@ -1,12 +1,12 @@
 <template>
   <div>
-    <BlocksContainer lockAxis="y" appendTo=".main-wrapper html body" :useDragHandle="true" v-model="blocks" helperClass="sorting">
+    <BlocksContainer lockAxis="y" appendTo="#vtm" :useDragHandle="true" v-model="blocks" helperClass="sorting">
       <BlockItem v-for="(block, index) in blocks" :index="index" :key="index" v-model="blocks[index]" :blocks="blocks" ref="block" />
     </BlocksContainer>
 
     <hr>
 
-    <div class="card">
+    <div class="card vtm">
       <div class="card-body text-center">
           <popper trigger="click" :options="{placement: 'bottom'}">
             <div class="popper">

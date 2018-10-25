@@ -1,5 +1,5 @@
 <template>
-  <div class="text-white bg-dark p-2 rounded" v-show="show">
+  <div class="vtm text-white bg-dark p-2 rounded" v-show="show">
     <slot />
   </div>
 </template>

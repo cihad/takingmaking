@@ -1,18 +1,6 @@
 <template>
-  <div class="main-wrapper">
-    {{msg}}
-    <html>
-    <body>
-      <div class="container">
-        <div class="row">
-
-          <div class="col-8 offset-2">
-            <Blocks />
-          </div>
-        </div>
-      </div>
-    </body>
-    </html>
+  <div class="main-wrapper" id="vtm">
+    <Blocks />
   </div>
 </template>
 
@@ -32,7 +20,16 @@ export default {
 
 <style scoped lang="scss">
 .main-wrapper /deep/ {
-  @import "~bootstrap/dist/css/bootstrap.min";
+  @import "~bootstrap/dist/css/bootstrap";
+
+  .vtm {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+  }
 
   .container {
     width: 900px;
