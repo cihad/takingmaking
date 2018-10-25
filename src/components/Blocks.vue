@@ -16,7 +16,7 @@
 
             </div>
 
-            <button class="btn btn-sm btn-success" slot="reference">&#10133;</button> 
+            <button class="btn btn-sm btn-success" slot="reference">&#10010;</button> 
           </popper>
       </div>
     </div>
