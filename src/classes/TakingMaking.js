@@ -81,7 +81,7 @@ export default class TakingMaking {
       var blockClass = require(`@/blocks/${bName}/main`).default
       var obj = new blockClass(block)
 
-      obj.addBlock()
+      // obj.addBlock()
     })
 
 

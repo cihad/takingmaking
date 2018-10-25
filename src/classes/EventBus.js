@@ -3,8 +3,7 @@ import Vue from 'vue';
 const EventBus = new Vue({
   data() {
     return {
-      blocks: [],
-      cihad: []
+      blocks: []
     }
   },
   methods: {

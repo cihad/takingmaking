@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       bus: EventBus,
-      cihad: EventBus.cihad,
+      blocks: EventBus.blocks,
       html: ""
     }
   },
@@ -49,11 +49,11 @@ export default {
   },
   methods: {
     addBlock(block) {
-      this.cihad.push(JSON.parse(JSON.stringify(block)))
+      this.blocks.push(JSON.parse(JSON.stringify(block)))
     }
   },
   watch: {
-    cihad: {
+    blocks: {
       handler: function(newBlocks) {
         var _this = this;
 

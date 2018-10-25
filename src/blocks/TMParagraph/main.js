@@ -19,7 +19,7 @@ class TMParagraph {
   }
 
   addBlock() {
-    EventBus.cihad.push(this.serializeFromHtml())
+    EventBus.blocks.push(this.serializeFromHtml())
   }
 }
 export default TMParagraph
