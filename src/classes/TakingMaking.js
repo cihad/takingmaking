@@ -38,9 +38,7 @@ export default class TakingMaking {
   }
 
   changed(callback) {
-    EventBus.$on('blocksChanged', function(blocks) {
-      callback(blocks);
-    });
+    EventBus.$on('blocksChanged', callback);
   }
 
   // TODO
