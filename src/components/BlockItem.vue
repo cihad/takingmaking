@@ -4,14 +4,19 @@
         v-on:mouseleave="leaveBlock"
         v-on-clickaway="clickaway"
         v-on:mousedown="state.focus = true">
-    <div v-handle class="handle top"></div>
+    <!-- <div v-handle class="handle top"></div>
     <div v-handle class="handle bottom"></div>
     <div v-handle class="handle right"></div>
-    <div v-handle class="handle left"></div>
+    <div v-handle class="handle left"></div> -->
+
+    <div class="handle top"></div>
+    <div class="handle bottom"></div>
+    <div class="handle right"></div>
+    <div class="handle left"></div>
 
     <div class="vtm toolbar btn-group" v-if="state.hover || state.focus">
       <a  href="#"
-          class="btn btn-xs btn-primary"
+          class="btn btn-xs btn-primary btn-remove"
           :class="{ 'btn-light-blue': lightBlue, 'btn-danger': state.showRemove }"
           v-on:click="remove">
         <span>&#10005;</span>
@@ -26,9 +31,8 @@
       </a>
 
       <a  href="#"
-          class="btn btn-xs btn-primary"
-          :class="{ 'btn-light-blue': lightBlue }"
-          v-handle>
+          class="btn btn-xs btn-primary handle"
+          :class="{ 'btn-light-blue': lightBlue }">
         move
       </a>
     </div>
@@ -52,12 +56,15 @@ import TMParagraph from "./TMParagraph.vue"
 import TMParagraphOptions from "./TMParagraphOptions.vue"
 import TMButton from "./TMButton.vue"
 import TMButtonOptions from "./TMButtonOptions.vue"
-import { ElementMixin, HandleDirective } from 'vue-slicksort';
+// import { ElementMixin, HandleDirective } from 'vue-slicksort';
 import Tooltip from './Tooltip';
 import { directive as onClickaway } from 'vue-clickaway';
 
+// export default {
+//   mixins: [ElementMixin],
+//   directives: { handle: HandleDirective, onClickaway },
+
 export default {
-  mixins: [ElementMixin],
   props: {
     blocks: Array,
     value: Object
@@ -65,7 +72,7 @@ export default {
   components: {
     TMParagraph, Tooltip, TMParagraphOptions, TMButton, TMButtonOptions
   },
-  directives: { handle: HandleDirective, onClickaway },
+  directives: { onClickaway },
   data() {
     return {
       state: {
@@ -121,6 +128,10 @@ export default {
 </script>
 
 <style>
+.btn-remove {
+  transition: width 2s !important;
+}
+
 .item {
   position: relative;
 }

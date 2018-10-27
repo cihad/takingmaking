@@ -1,11 +1,13 @@
 <template>
   <div :style="{ fontSize: value.options.fontSize + 'px' }">
-    <medium-editor :text='value.content'
-                    v-on:edit='processEditOperation'
-                    :options="options"
-                    v-on:focus.native="focus"
-                    v-on:blur.native="blur">
-    </medium-editor>
+    <p>
+      <medium-editor :text='value.content'
+                      v-on:edit='processEditOperation'
+                      :options="options"
+                      v-on:focus.native="focus"
+                      v-on:blur.native="blur">
+      </medium-editor>
+    </p>
   </div>
 </template>
 
@@ -19,7 +21,12 @@ import Block from './Block';
 EventBus.registerBlock({
   name: "TMParagraph",
   optionsName: "TMParagraphOptions",
-  content: "Merhaba",
+  content: `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
   options: {
     fontSize: null
   }

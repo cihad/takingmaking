@@ -1,25 +1,29 @@
 <template>
   <div>
-    <BlocksContainer lockAxis="y" appendTo="#vtm" :useDragHandle="true" v-model="blocks" helperClass="sorting">
+    <!-- <BlocksContainer lockAxis="y" appendTo="#vtm" :useDragHandle="true" v-model="blocks" helperClass="sorting">
       <BlockItem v-for="(block, index) in blocks" :index="index" :key="index" v-model="blocks[index]" :blocks="blocks" ref="block" />
-    </BlocksContainer>
+    </BlocksContainer> -->
 
-    <hr>
+    <draggable v-model="blocks" :options="{handle: '.handle' }">
+      <transition-group name="list-complete">
+        <BlockItem v-for="(block, index) in blocks" :index="index" :key="index" v-model="blocks[index]" :blocks="blocks" ref="block" />
+      </transition-group>
+    </draggable>
 
-    <div class="card vtm">
-      <div class="card-body text-center">
-          <popper trigger="click" :options="{placement: 'bottom'}">
-            <div class="popper">
-              <template v-for="(block, i) in bus.blocks">
-                <a href="#" v-on:click="addBlock(block)">{{ block.name }}</a>
-              </template>
-
-            </div>
-
-            <button class="btn btn-sm btn-success" slot="reference">&#10010;</button> 
-          </popper>
+    <popper trigger="click" :options="{placement: 'bottom'}">
+      <div class="vtm card text-white bg-dark">
+          <div class="card-header">
+            <input type="text" class="text-white w-100" name="" placeholder="Search blocks..." style="background-color: transparent; border: 0; outline: none" autofocus="true">
+          </div>
+          <div class="list-group list-group-flush">
+            <template v-for="(block, i) in bus.blocks">
+              <a href="#" class="list-group-item list-group-item-action" v-on:click="addBlock(block)">{{ block.name }}</a>
+            </template>
+          </div>
       </div>
-    </div>
+
+      <button class="btn btn-block btn-lg btn-light mt-4" slot="reference">&#10010;</button> 
+    </popper>
 
     <details class="mt-5">
       <summary>Blocks</summary>
@@ -30,6 +34,7 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 import BlocksContainer from "./BlocksContainer"
 import BlockItem from "./BlockItem"
 import popper from 'vue-popperjs';
@@ -45,7 +50,7 @@ export default {
     }
   },
   components: {
-    BlocksContainer, BlockItem, popper
+    BlocksContainer, BlockItem, popper, draggable
   },
   methods: {
     addBlock(block) {
@@ -82,12 +87,31 @@ export default {
 </script>
 
 <style>
+.list-complete-enter-active {
+  overflow: hidden;
+  transition: all 1s;
+}
+
+.list-complete-leave-active {
+  margin-top: 0px;
+  overflow: hidden;
+  transition: all 1s;
+}
+
+.list-complete-enter, .list-complete-leave-to {
+  height: 0px;
+  opacity: 0;
+  padding: 0px;
+  margin-top: 0px;
+  overflow: hidden;
+}
+
 .card .popper__arrow {
   display: none;
 }
 
 .card[x-placement] {
-  width: 25vw;
+  width: 20vw;
 }
 
 .card[x-placement]::after,
