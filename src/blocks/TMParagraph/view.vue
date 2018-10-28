@@ -1,11 +1,13 @@
 <template>
   <div :style="{ fontSize: value.options.fontSize + 'px' }">
-    <medium-editor :text='value.content'
-                    v-on:edit='processEditOperation'
-                    :options="options"
-                    v-on:focus.native="focus"
-                    v-on:blur.native="blur">
-    </medium-editor>
+    <p>
+      <medium-editor :text='value.content'
+                      v-on:edit='processEditOperation'
+                      :options="options"
+                      v-on:focus.native="focus"
+                      v-on:blur.native="blur">
+      </medium-editor>
+    </p>
   </div>
 </template>
 
@@ -14,15 +16,6 @@ import editor from 'vue2-medium-editor'
 import 'medium-editor/dist/css/medium-editor.css'
 import 'medium-editor/dist/css/themes/beagle.css'
 import EventBus from '@/classes/EventBus';
-
-EventBus.registerBlock({
-  name: "TMParagraph",
-  optionsName: "TMParagraphOptions",
-  content: "Merhaba",
-  options: {
-    fontSize: null
-  }
-})
 
 export default {
   props: {

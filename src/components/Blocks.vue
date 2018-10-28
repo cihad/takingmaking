@@ -1,9 +1,5 @@
 <template>
   <div>
-    <!-- <BlocksContainer lockAxis="y" appendTo="#vtm" :useDragHandle="true" v-model="blocks" helperClass="sorting">
-      <BlockItem v-for="(block, index) in blocks" :index="index" :key="index" v-model="blocks[index]" :blocks="blocks" ref="block" />
-    </BlocksContainer> -->
-
     <draggable v-model="blocks" :options="{handle: '.handle' }">
       <transition-group name="list-complete">
         <BlockItem v-for="(block, index) in blocks" :index="index" :key="index" v-model="blocks[index]" :blocks="blocks" ref="block" />

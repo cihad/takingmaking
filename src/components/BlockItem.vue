@@ -4,10 +4,6 @@
         v-on:mouseleave="leaveBlock"
         v-on-clickaway="clickaway"
         v-on:mousedown="state.focus = true">
-    <!-- <div v-handle class="handle top"></div>
-    <div v-handle class="handle bottom"></div>
-    <div v-handle class="handle right"></div>
-    <div v-handle class="handle left"></div> -->
 
     <div class="handle top"></div>
     <div class="handle bottom"></div>
@@ -52,17 +48,8 @@
 </template>
 
 <script>
-import TMParagraph from "./TMParagraph.vue"
-import TMParagraphOptions from "./TMParagraphOptions.vue"
-import TMButton from "./TMButton.vue"
-import TMButtonOptions from "./TMButtonOptions.vue"
-// import { ElementMixin, HandleDirective } from 'vue-slicksort';
 import Tooltip from './Tooltip';
 import { directive as onClickaway } from 'vue-clickaway';
-
-// export default {
-//   mixins: [ElementMixin],
-//   directives: { handle: HandleDirective, onClickaway },
 
 export default {
   props: {
@@ -70,7 +57,7 @@ export default {
     value: Object
   },
   components: {
-    TMParagraph, Tooltip, TMParagraphOptions, TMButton, TMButtonOptions
+    Tooltip
   },
   directives: { onClickaway },
   data() {
@@ -82,6 +69,18 @@ export default {
         showRemove: false,
       }
     }
+  },
+  beforeMount() {
+    var _this = this
+    var comps = [
+      "TMParagraph",
+      "TMButton"
+    ]
+
+    comps.forEach((name) => {
+      _this.$options.components[name] = require(`@/blocks/${name}/view`).default
+      _this.$options.components[`${name}Options`] = require(`@/blocks/${name}/options`).default
+    })
   },
   methods: {
     remove() {

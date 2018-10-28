@@ -7,23 +7,9 @@
 </template>
 
 <script>
-import EventBus from '../classes/EventBus';
-import Block from './Block';
-
-EventBus.registerBlock({
-  name: "TMButton",
-  optionsName: "TMButtonOptions",
-  buttonText: "Merhaba",
-  buttonUrl: "example.com", 
-  options: {
-    color: 'primary',
-    outline: false,
-    block: false
-  }
-})
+import EventBus from '@/classes/EventBus';
 
 export default {
-  mixins: [Block],
   props: {
     value: Object,
   },
