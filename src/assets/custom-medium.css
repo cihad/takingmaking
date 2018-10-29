@@ -1,0 +1,87 @@
+.medium-toolbar-arrow-under:after {
+  border-color: #343a40 transparent transparent transparent;
+  border-width: 5px 5px 0 5px;
+  top: 30px;
+}
+
+.medium-toolbar-arrow-over:before {
+  border-color: transparent transparent #343a40 transparent;
+  border-width: 0 5px 5px 5px;
+  top: -5px;
+}
+
+.medium-editor-toolbar {
+  border-radius: 4px;
+}
+
+.medium-editor-toolbar li button,
+.medium-editor-toolbar-form a,
+.medium-editor-anchor-preview a {
+  background-color: #343a40;
+  border: 0;
+  color: #fff;
+  min-width: 30px;
+  padding: 0px;
+  font-size: 14px;
+  line-height: 30px;
+}
+
+.medium-editor-toolbar li button:hover,
+.medium-editor-toolbar-form a:hover,
+.medium-editor-anchor-preview a:hover {
+  background-color: #222;
+}
+
+.medium-editor-toolbar li .medium-editor-button-first {
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+}
+
+.medium-editor-toolbar li .medium-editor-button-last {
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.medium-editor-toolbar li .medium-editor-button-active {
+  background-color: #000;
+  color: #fff;
+}
+
+.medium-editor-toolbar li .medium-editor-button-active:hover {
+  background-color: #000;
+}
+
+.medium-editor-toolbar-form {
+  background: #343a40;
+  border-radius: 4px;
+  color: #999;
+}
+
+.medium-editor-toolbar-form .medium-editor-toolbar-input {
+  background: #343a40;
+  box-sizing: border-box;
+  color: #ccc;
+  height: 30px;
+  padding: 10px;
+}
+
+.medium-editor-toolbar-form a,
+.medium-editor-anchor-preview a {
+  margin: 0;
+  text-align: center;
+}
+
+.medium-editor-anchor-preview a {
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.medium-editor-toolbar-anchor-preview {
+  background: #343a40;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.medium-editor-placeholder:after {
+  color: #b3b3b1;
+}
