@@ -9,7 +9,8 @@ class TMButton {
     var btn = this.htmlDoc.querySelector('a')
 
     return {
-      name: "TMButton",
+      name: "Button",
+      viewName: "TMButton",
       optionsName: "TMButtonOptions",
       buttonText: btn.innerText,
       buttonUrl: btn.getAttribute("href"), 

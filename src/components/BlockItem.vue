@@ -38,7 +38,7 @@
                   v-model="value" />
     </Tooltip>
 
-    <component  :is="value.name"
+    <component  :is="value.viewName"
                 v-model="value"
                 :data-hovered="state.hover"
                 :data-active="state.focus || state.showOptions"

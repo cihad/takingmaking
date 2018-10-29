@@ -9,7 +9,8 @@ class TMParagraph {
     var _this = this
 
     return {
-      name: _this.htmlDoc.getAttribute('data-tm-block'),
+      name: "Text",
+      viewName: _this.htmlDoc.getAttribute('data-tm-block'),
       optionsName: `${_this.htmlDoc.getAttribute('data-tm-block')}Options`,
       content: _this.htmlDoc.innerHTML,
       options: {
