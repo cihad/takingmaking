@@ -6,7 +6,7 @@ class TMButton {
       this.htmlDoc = htmlDoc
       var btn = this.htmlDoc.querySelector('a')
 
-      this.buttonText = btn.innerText
+      this.buttonText = btn.innerText.trim()
       this.buttonUrl = btn.getAttribute("href")
     }
   }
