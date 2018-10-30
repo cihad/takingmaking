@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import TakingMaking from './classes/TakingMaking'
+import Blocks from '@/classes/Blocks'
 
 Vue.config.productionTip = false
 

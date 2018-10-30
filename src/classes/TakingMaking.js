@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from '../App.vue'
-import EventBus from './EventBus.js'
+import BlockArea from './BlockArea.js'
 
 export default class TakingMaking {
   constructor(config) {
@@ -18,13 +18,13 @@ export default class TakingMaking {
 
     this.getBlocks()
 
-    EventBus.$on('blocksHtmlChanged', function(newHtml) {
+    BlockArea.$on('blocksHtmlChanged', function(newHtml) {
       document.querySelector(_this.output).value = newHtml
     })
   }
 
   changed(callback) {
-    EventBus.$on('blocksChanged', callback);
+    BlockArea.$on('blocksChanged', callback);
   }
 
   // TODO

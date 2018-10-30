@@ -50,6 +50,7 @@
 <script>
 import Tooltip from './Tooltip';
 import { directive as onClickaway } from 'vue-clickaway';
+import Blocks from '@/classes/Blocks';
 
 export default {
   props: {
@@ -72,14 +73,10 @@ export default {
   },
   beforeMount() {
     var _this = this
-    var comps = [
-      "TMParagraph",
-      "TMButton"
-    ]
 
-    comps.forEach((name) => {
-      _this.$options.components[name] = require(`@/blocks/${name}/view`).default
-      _this.$options.components[`${name}Options`] = require(`@/blocks/${name}/options`).default
+    Blocks.blocks.forEach((block) => {
+      _this.$options.components[block.viewName] = block.view
+      _this.$options.components[block.optionsName] = block.options
     })
   },
   methods: {

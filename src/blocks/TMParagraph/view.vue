@@ -15,7 +15,6 @@
 import editor from 'vue2-medium-editor'
 import 'medium-editor/dist/css/medium-editor.css'
 import '@/assets/custom-medium.css'
-import EventBus from '@/classes/EventBus';
 
 export default {
   props: {

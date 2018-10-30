@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-const EventBus = new Vue({
+const BlockArea = new Vue({
   data() {
     return {
       blocks: []
@@ -13,4 +13,4 @@ const EventBus = new Vue({
   }
 });
 
-export default EventBus;
+export default BlockArea;

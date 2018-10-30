@@ -1,8 +1,8 @@
 <template>
   <div>
-    <draggable v-model="blocks" :options="{handle: '.handle' }">
+    <draggable v-model="blockAreaBlocks" :options="{handle: '.handle' }">
       <transition-group name="list-complete">
-        <BlockItem v-for="(block, index) in blocks" :index="index" :key="index" v-model="blocks[index]" :blocks="blocks" ref="block" />
+        <BlockItem v-for="(block, index) in blockAreaBlocks" :index="index" :key="index" v-model="blockAreaBlocks[index]" :blocks="blockAreaBlocks" ref="block" />
       </transition-group>
     </draggable>
 
@@ -12,8 +12,8 @@
             <input type="text" class="text-white w-100" name="" placeholder="Search blocks..." style="background-color: transparent; border: 0; outline: none" autofocus="true">
           </div>
           <div class="list-group list-group-flush">
-            <template v-for="(block, i) in bus.blocks">
-              <a href="#" class="list-group-item list-group-item-action" v-on:click="addBlock(block)">{{ block.name }}</a>
+            <template v-for="(block, i) in Blocks.blocks">
+              <a href="#" class="list-group-item list-group-item-action" v-on:click="addBlock(block)">{{ block.humanName }}</a>
             </template>
           </div>
       </div>
@@ -23,7 +23,7 @@
 
     <details class="mt-5">
       <summary>Blocks</summary>
-      <pre>{{blocks}}</pre>
+      <pre>{{blockAreaBlocks}}</pre>
     </details>
 
   </div>
@@ -35,13 +35,14 @@ import BlocksContainer from "./BlocksContainer"
 import BlockItem from "./BlockItem"
 import popper from 'vue-popperjs';
 import 'vue-popperjs/dist/css/vue-popper.css';
-import EventBus from '../classes/EventBus';
+import BlockArea from '../classes/BlockArea';
+import Blocks from '../classes/Blocks';
 
 export default {
   data() {
     return {
-      bus: EventBus,
-      blocks: EventBus.blocks,
+      blockAreaBlocks: BlockArea.blocks,
+      Blocks: Blocks,
       html: ""
     }
   },
@@ -50,7 +51,7 @@ export default {
   },
   methods: {
     addBlock(block) {
-      this.blocks.push(JSON.parse(JSON.stringify(block)))
+      this.blockAreaBlocks.push((new block()).blockObject)
     }
   },
   watch: {
@@ -70,10 +71,10 @@ export default {
             })
           }
 
-          EventBus.$emit('blocksHtmlChanged', _this.html);
+          BlockArea.$emit('blocksHtmlChanged', _this.html);
         })
 
-        EventBus.$emit('blocksChanged', newBlocks);
+        BlockArea.$emit('blocksChanged', newBlocks);
       },
       immediate: true,
       deep: true

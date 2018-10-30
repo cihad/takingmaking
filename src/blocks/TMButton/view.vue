@@ -7,8 +7,6 @@
 </template>
 
 <script>
-import EventBus from '@/classes/EventBus';
-
 export default {
   props: {
     value: Object,
