@@ -23,7 +23,7 @@
           class="btn btn-xs btn-primary"
           :class="{ 'btn-light-blue': lightBlue }"
           v-on:click="state.showOptions = !state.showOptions">
-        conf
+        options
       </a>
 
       <a  href="#"
