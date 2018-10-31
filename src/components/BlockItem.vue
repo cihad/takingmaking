@@ -12,7 +12,7 @@
 
     <div class="vtm toolbar btn-group" v-if="state.hover || state.focus">
       <a  href="#"
-          class="btn btn-xs btn-primary btn-remove"
+          class="btn btn-xs btn-primary"
           :class="{ 'btn-light-blue': lightBlue, 'btn-danger': state.showRemove }"
           v-on:click="remove">
         <span>&#10005;</span>
@@ -124,10 +124,6 @@ export default {
 </script>
 
 <style>
-.btn-remove {
-  transition: width 2s !important;
-}
-
 .item {
   position: relative;
 }
@@ -169,7 +165,6 @@ export default {
   position: absolute !important;
   top: -25px;
   right: 0;
-  transition: all 2s;
   display: flex !important;
   justify-content: flex-end;
 }
@@ -195,16 +190,4 @@ export default {
 .toolbar.btn-group {
   margin-right: -1px;
 }
-
-.remove-button {
-  background-color: rgba(0,0,0,.24);
-  transition: width .2s,background-color .2s;
-  padding: 0 5px 0 14px;
-  color: #fff !important;
-  font-size: 11px;
-  line-height: 16px;
-  overflow: hidden;
-  width: 0;
-}
-
 </style>

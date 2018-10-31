@@ -2,12 +2,12 @@
   <div>
     <div class="form-group">
       <label for="buttonText">Button Text</label>
-      <input type="text" class="form-control" v-model="value.buttonText">
+      <input type="text" class="vtm form-control" v-model="value.buttonText">
     </div>
 
     <div class="form-group">
       <label for="font-size">Color:</label>
-      <select v-model="value.options.color" class="form-control">
+      <select v-model="value.options.color" class="vtm form-control">
         <option>primary</option>
         <option>secondary</option>
         <option>success</option>

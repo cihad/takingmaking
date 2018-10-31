@@ -1,6 +1,8 @@
 <template>
-  <div class="vtm text-white bg-dark p-2 rounded" v-show="show">
-    <slot />
+  <div class="vtm text-white bg-dark card card-options" v-show="show">
+    <div class="card-body">
+      <slot />
+    </div>
   </div>
 </template>
 
@@ -23,5 +25,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.card-options {
+	width: 200px !important;
+}
+
+.card-options > .card-body {
+	padding: .75rem !important;
+}
 </style>
