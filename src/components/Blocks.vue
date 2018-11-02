@@ -1,9 +1,12 @@
 <template>
-  <div>
-    <draggable v-model="blockAreaBlocks" :options="{handle: '.handle' }">
-      <transition-group name="list-complete">
-        <BlockItem v-for="(block, index) in blockAreaBlocks" :index="index" :key="index" v-model="blockAreaBlocks[index]" :blocks="blockAreaBlocks" ref="block" />
-      </transition-group>
+  <div :class="sizeClass">
+    <draggable :list="value" :options="{handle: '.handle', group: 'blocks' }">
+      <Block  v-for="(block, index) in value"
+              :index="index"
+              :key="index"
+              v-model="value[index]"
+              :blocks="value"
+              ref="block" />
     </draggable>
 
     <popper trigger="click" :options="{placement: 'bottom'}">
@@ -13,7 +16,7 @@
           </div>
           <div class="list-group list-group-flush">
             <template v-for="(block, i) in Blocks.blocks">
-              <a href="#" class="list-group-item list-group-item-action" v-on:click="addBlock(block)">{{ block.humanName }}</a>
+              <a href="#" class="list-group-item list-group-item-action" v-on:click.prevent="addBlock(block)">{{ block.humanName }}</a>
             </template>
           </div>
       </div>
@@ -21,37 +24,35 @@
       <button class="btn btn-block btn-lg btn-light mt-4" slot="reference">&#10010;</button> 
     </popper>
 
-    <details class="mt-5">
-      <summary>Blocks</summary>
-      <pre>{{blockAreaBlocks}}</pre>
-    </details>
-
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable'
-import BlocksContainer from "./BlocksContainer"
-import BlockItem from "./BlockItem"
+import Block from "./Block"
 import popper from 'vue-popperjs';
 import 'vue-popperjs/dist/css/vue-popper.css';
-import BlockArea from '../classes/BlockArea';
 import Blocks from '../classes/Blocks';
 
 export default {
+  props: { 
+    value: Array,
+    size: Number
+  },
   data() {
     return {
-      blockAreaBlocks: BlockArea.blocks,
       Blocks: Blocks,
       html: ""
     }
   },
   components: {
-    BlocksContainer, BlockItem, popper, draggable
+    Block, popper, draggable
+  },
+  mounted() {
   },
   methods: {
     addBlock(block) {
-      this.blockAreaBlocks.push((new block()).blockObject)
+      this.value.push((new block()).blockObject)
     }
   },
   watch: {
@@ -71,13 +72,23 @@ export default {
             })
           }
 
-          BlockArea.$emit('blocksHtmlChanged', _this.html);
+          // BlockArea.$emit('blocksHtmlChanged', _this.html);
         })
 
-        BlockArea.$emit('blocksChanged', newBlocks);
+        // BlockArea.$emit('blocksChanged', newBlocks);
       },
       immediate: true,
       deep: true
+    }
+  },
+  computed: {
+    sizeClass() {
+      var str = "col"
+
+      if (this.size)
+        str += "-" + this.size
+
+      return str
     }
   }
 }

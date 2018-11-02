@@ -13,6 +13,10 @@ class TMParagraph {
     return "Paragraph"
   }
 
+  get humanName() {
+    return "Paragraph"
+  }
+
   static get viewName() {
     return "TMParagraph"
   }

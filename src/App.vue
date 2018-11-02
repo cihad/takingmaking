@@ -1,19 +1,71 @@
 <template>
   <div class="main-wrapper" id="vtm">
-    <Blocks />
+
+    <div class="row" v-for="row in rows">
+      <Blocks v-model="container.blocks" :size="container.colSize" v-for="(container, i) in row" />
+    </div>
+
+    <ul>
+      <li v-on:click="addRow(12)">12</li>
+      <li v-on:click="addRow(6,6)">6/6</li>
+      <li v-on:click="addRow(4,8)">4/8</li>
+      <li v-on:click="addRow(8,4)">8/4</li>
+      <li v-on:click="addRow(4,4,4)">4/4/4</li>
+    </ul>
+
+    <ul>
+      <draggable :list="Blocks.blocks" :options="{ group: {name: 'blocks', pull: 'clone'}, sort: false }" :clone="clone">
+        <li v-for="block in Blocks.blocks">{{ block.humanName }}</li>
+      </draggable>
+    </ul>
+
+    <details class="mt-5">
+      <summary>Blocks</summary>
+      <pre>{{rows}}</pre>
+    </details>
+
   </div>
 </template>
 
 <script>
-import Blocks from './components/Blocks.vue'
+import draggable from 'vuedraggable'
+import BlocksComponent from './components/Blocks.vue'
+import Blocks from '@/classes/Blocks'
+import BlockArea from '@/classes/BlockArea'
 
 export default {
   name: 'app',
-  props: {
-    msg: String
+  data() {
+    return {
+      Blocks: Blocks,
+      rows: BlockArea.rows
+    }
   },
   components: {
-    Blocks
+    Blocks: BlocksComponent, draggable
+  },
+  methods: {
+    addRow(...rows) {
+      var arr = []
+
+      rows.forEach(size => arr.push({ colSize: size, blocks: []}))
+
+      this.rows.push(arr)
+    },
+    clone(block) {
+      return (new block()).blockObject
+    }
+  },
+  computed: {
+    blocks() {
+      var blocks = []
+
+      Blocks.blocks.forEach(block => {
+        blocks.push((new block()).blockObject)
+      })
+
+      return blocks
+    }
   }
 }
 </script>

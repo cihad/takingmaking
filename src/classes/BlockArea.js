@@ -3,7 +3,8 @@ import Vue from 'vue';
 const BlockArea = new Vue({
   data() {
     return {
-      blocks: []
+      blocks: [],
+      rows: []
     }
   },
   methods: {

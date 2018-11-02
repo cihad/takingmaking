@@ -14,7 +14,7 @@
       <a  href="#"
           class="btn btn-xs btn-primary"
           :class="{ 'btn-light-blue': lightBlue, 'btn-danger': state.showRemove }"
-          v-on:click="remove">
+          v-on:click.prevent="remove">
         <span>&#10005;</span>
         <span v-show="state.showRemove">remove</span>
       </a>
@@ -22,7 +22,7 @@
       <a  href="#"
           class="btn btn-xs btn-primary"
           :class="{ 'btn-light-blue': lightBlue }"
-          v-on:click="state.showOptions = !state.showOptions">
+          v-on:click.prevent="state.showOptions = !state.showOptions">
         options
       </a>
 

@@ -15,6 +15,10 @@ class TMButton {
     return "Button"
   }
 
+  get humanName() {
+    return "Button"
+  }
+
   static get viewName() {
     return "TMButton"
   }
