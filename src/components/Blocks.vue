@@ -1,6 +1,6 @@
 <template>
   <div :class="sizeClass">
-    <draggable :list="value" :options="{handle: '.handle', group: 'blocks' }">
+    <draggable :list="value" class="draggable-area" :options="{handle: '.handle', group: 'blocks' }">
       <Block  v-for="(block, index) in value"
               :index="index"
               :key="index"
@@ -95,6 +95,9 @@ export default {
 </script>
 
 <style>
+.draggable-area {
+  min-height: 20px;
+}
 .list-complete-enter-active {
   overflow: hidden;
   transition: all 1s;

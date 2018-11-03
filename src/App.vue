@@ -14,7 +14,7 @@
     </ul>
 
     <ul>
-      <draggable :list="Blocks.blocks" :options="{ group: {name: 'blocks', pull: 'clone'}, sort: false }" :clone="clone">
+      <draggable :list="Blocks.blocks" :options="{ group: {name: 'blocks', pull: 'clone', put: false}, sort: false }" :clone="clone">
         <li v-for="block in Blocks.blocks">{{ block.humanName }}</li>
       </draggable>
     </ul>
