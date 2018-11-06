@@ -1,6 +1,6 @@
 <template>
   <div :class="sizeClass">
-    <draggable :list="value" class="draggable-area" :options="{handle: '.handle', group: 'blocks', animation: 150 }">
+    <draggable :list="value" class="draggable-area" :class="{ 'no-block': value.length == 0 }" :options="{handle: '.handle', group: 'blocks', animation: 150 }">
       <Block  v-for="(block, index) in value"
               :index="index"
               :key="index"
@@ -77,9 +77,25 @@ export default {
 </script>
 
 <style>
-.draggable-area {
-  min-height: 20px;
+
+.draggable-area.no-block {
+  height: 50px;
 }
+
+.draggable-area.no-block:before {
+  content: 'drag block here';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 15px;
+  left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ghostwhite;
+  border-radius: 4px;
+}
+
 .list-complete-enter-active {
   overflow: hidden;
   transition: all 1s;
