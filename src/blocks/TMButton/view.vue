@@ -1,5 +1,5 @@
 <template>
-  <div v-on:click="focus" style="text-align: center">
+  <div v-on:click="focus" style="text-align: center" class="mb-3">
     <a :href="value.buttonUrl" class="btn" :class="[buttonClass, blockClass]" v-on:click.prevent>
       {{ value.buttonText }}
     </a>
@@ -56,12 +56,4 @@ export default {
 </script>
 
 <style scoped>
-[data-hovered=true] {
-  outline: 1px solid #9FDFFF  ;
-}
-
-.sorting,
-[data-active=true] {
-  outline: 1px solid #00aaff;
-}
 </style>

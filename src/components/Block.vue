@@ -5,10 +5,7 @@
         v-on-clickaway="clickaway"
         v-on:mousedown="state.focus = true">
 
-    <div class="handle top"></div>
-    <div class="handle bottom"></div>
-    <div class="handle right"></div>
-    <div class="handle left"></div>
+    <div class="handle" :class="{ hover: state.hover, active: state.focus }"></div>
 
     <div class="vtm toolbar btn-group" v-if="state.hover || state.focus">
       <a  href="#"
@@ -126,45 +123,34 @@ export default {
 <style>
 .item {
   position: relative;
+  z-index: 1;
 }
 
 .item > .handle {
   position: absolute;
   cursor: move;
-}
-
-.item > .handle.top {
-  height: 10px;
-  top: -5px;
-  right: 0;
-  left: 0;
-}
-
-.item > .handle.bottom {
-  height: 10px;
   bottom: -5px;
-  right: 0;
-  left: 0;
-}
-
-.item > .handle.left {
-  width: 10px;
   left: -5px;
-  top: 0;
-  bottom: 0;
+  right: -5px;
+  top: -5px;
+  margin: 0;
+  padding: 0;
+  outline: 1px solid transparent;
+  z-index: -1;
 }
 
-.item > .handle.right {
-  width: 10px;
-  right: -5px;
-  top: 0;
-  bottom: 0;
+.item > .handle.active {
+  outline-color: #0af;
+}
+
+.item > .handle.hover {
+  outline-color: #9FDFFF;
 }
 
 .toolbar {
   position: absolute !important;
-  top: -25px;
-  right: 0;
+  top: -30px;
+  right: -5px;
   display: flex !important;
   justify-content: flex-end;
 }

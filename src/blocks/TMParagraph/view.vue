@@ -64,14 +64,8 @@ export default {
 </script>
 
 <style scoped>
-[data-hovered=true] div {
-  outline: 1px solid #9FDFFF  ;
-}
-
-.sorting div,
-[contenteditable]:focus,
-[data-active=true] div {
-  outline: 1px solid #00aaff;
+[contenteditable]:focus {
+  outline: none;
 }
 
 .medium-editor-element {
