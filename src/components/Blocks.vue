@@ -1,6 +1,6 @@
 <template>
   <div :class="sizeClass">
-    <draggable :list="value" class="draggable-area" :options="{handle: '.handle', group: 'blocks' }">
+    <draggable :list="value" class="draggable-area" :options="{handle: '.handle', group: 'blocks', animation: 150 }">
       <Block  v-for="(block, index) in value"
               :index="index"
               :key="index"
@@ -8,30 +8,12 @@
               :blocks="value"
               ref="block" />
     </draggable>
-
-    <popper trigger="click" :options="{placement: 'bottom'}">
-      <div class="vtm card text-white bg-dark">
-          <div class="card-header">
-            <input type="text" class="text-white w-100" name="" placeholder="Search blocks..." style="background-color: transparent; border: 0; outline: none" autofocus="true">
-          </div>
-          <div class="list-group list-group-flush">
-            <template v-for="(block, i) in Blocks.blocks">
-              <a href="#" class="list-group-item list-group-item-action" v-on:click.prevent="addBlock(block)">{{ block.humanName }}</a>
-            </template>
-          </div>
-      </div>
-
-      <button class="btn btn-block btn-lg btn-light mt-4" slot="reference">&#10010;</button> 
-    </popper>
-
   </div>
 </template>
 
 <script>
 import draggable from 'vuedraggable'
 import Block from "./Block"
-import popper from 'vue-popperjs';
-import 'vue-popperjs/dist/css/vue-popper.css';
 import Blocks from '../classes/Blocks';
 
 export default {
@@ -46,7 +28,7 @@ export default {
     }
   },
   components: {
-    Block, popper, draggable
+    Block, draggable
   },
   mounted() {
   },

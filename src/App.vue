@@ -19,6 +19,21 @@
       </draggable>
     </ul>
 
+    <popper trigger="click" :options="{placement: 'bottom'}">
+      <div class="vtm card text-white bg-dark">
+          <div class="card-header">
+            <input type="text" class="text-white w-100" name="" placeholder="Search blocks..." style="background-color: transparent; border: 0; outline: none" autofocus="true">
+          </div>
+          <div class="list-group list-group-flush">
+            <draggable :list="Blocks.blocks" :options="{ group: {name: 'blocks', pull: 'clone', put: false}, sort: false }" :clone="clone">
+              <a href="#" v-for="block in Blocks.blocks" class="list-group-item list-group-item-action" @click.prevent>{{ block.humanName }}</a>
+            </draggable>
+          </div>
+      </div>
+
+      <button class="btn btn-block btn-lg btn-light mt-4" slot="reference">&#10010;</button> 
+    </popper>
+
     <details class="mt-5">
       <summary>Blocks</summary>
       <pre>{{rows}}</pre>
@@ -28,6 +43,8 @@
 </template>
 
 <script>
+import popper from 'vue-popperjs';
+import 'vue-popperjs/dist/css/vue-popper.css';
 import draggable from 'vuedraggable'
 import BlocksComponent from './components/Blocks.vue'
 import Blocks from '@/classes/Blocks'
@@ -42,7 +59,7 @@ export default {
     }
   },
   components: {
-    Blocks: BlocksComponent, draggable
+    Blocks: BlocksComponent, draggable, popper
   },
   methods: {
     addRow(...rows) {
