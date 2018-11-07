@@ -1,9 +1,9 @@
 <template>
   <div class="main-wrapper" id="vtm">
 
-    <div class="row" v-for="row in rows">
-      <Blocks v-model="container.blocks" :size="container.colSize" v-for="(container, i) in row" />
-    </div>
+    <draggable :list="rows" :options="{ group: 'rows', handle: '.handle' }">
+      <Row v-for="(row, i) in rows" :key="i" v-model="rows[i]" :rows="rows" :index="i" />
+    </draggable>
 
     <ul>
       <li v-on:click="addRow(12)">12</li>
@@ -49,6 +49,7 @@ import draggable from 'vuedraggable'
 import BlocksComponent from './components/Blocks.vue'
 import Blocks from '@/classes/Blocks'
 import BlockArea from '@/classes/BlockArea'
+import Row from '@/components/Row'
 
 export default {
   name: 'app',
@@ -59,7 +60,7 @@ export default {
     }
   },
   components: {
-    Blocks: BlocksComponent, draggable, popper
+    Blocks: BlocksComponent, draggable, popper, Row
   },
   methods: {
     addRow(...rows) {

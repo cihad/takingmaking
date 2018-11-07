@@ -1,9 +1,10 @@
 <template>
   <div  class="item"
-        v-on:mouseenter="state.hover = !state.focus"
-        v-on:mouseleave="leaveBlock"
+        v-on:mouseover.stop="state.hover = !state.focus"
+        v-on:mouseout.stop="leaveBlock"
         v-on-clickaway="clickaway"
-        v-on:mousedown="state.focus = true">
+        v-on:mousedown.stop="state.focus = true"
+        data-block>
 
     <div class="handle" :class="{ hover: state.hover, active: state.focus }"></div>
 
@@ -147,7 +148,7 @@ export default {
   outline-color: #9FDFFF;
 }
 
-.toolbar {
+.item .toolbar {
   position: absolute !important;
   top: -30px;
   right: -5px;

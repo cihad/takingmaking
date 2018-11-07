@@ -45,7 +45,7 @@ export default {
         this.$nextTick(function() {
           if (_this.$refs.block) {
             _this.html = ""
-            _this.$refs.block.forEach(function(block, i) {
+            _this.$refs.block.forEach(function(block) {
               block.$children.forEach(function(blc) {
                 if (typeof blc.toS == 'string') {
                   _this.html += blc.toS
