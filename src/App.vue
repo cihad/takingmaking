@@ -2,7 +2,7 @@
   <div class="main-wrapper" id="vtm">
 
     <draggable :list="rows" :options="{ group: 'rows', handle: '.handle' }">
-      <Row v-for="(row, i) in rows" :key="i" v-model="rows[i]" :rows="rows" :index="i" />
+      <Row v-for="(row, i) in rows" :key="uniqKey(row)" v-model="rows[i]" :rows="rows" :index="i" />
     </draggable>
 
     <ul>

@@ -6,12 +6,15 @@
         v-on-click-child-block="clickaway"
         v-on:mousedown="state.focus = true"
         v-on:click="state.hover = false">
+
     <div class="handle" :class="{ hover: state.hover, active: state.focus }"></div>
+
     <Blocks v-model="column.blocks" :size="column.colSize" v-for="(column, i) in value" />
 
     <div class="vtm toolbar btn-group" v-if="state.hover || state.focus">
       <a href="#" class="btn btn-xs btn-success" v-on:click.prevent="addRow()">+ add row</a>
       <a href="#" class="btn btn-xs btn-success" v-on:click.prevent="addColumn()">+ add column</a>
+      <a href="#" class="btn btn-xs btn-success handle">move</a>
     </div>
 
   </div>

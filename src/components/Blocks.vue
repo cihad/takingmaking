@@ -3,7 +3,7 @@
     <draggable :list="value" class="draggable-area" :class="{ 'no-block': value.length == 0 }" :options="{handle: '.handle', group: 'blocks', animation: 150 }">
       <Block  v-for="(block, index) in value"
               :index="index"
-              :key="index"
+              :key="uniqKey(block)"
               v-model="value[index]"
               :blocks="value"
               ref="block" />
