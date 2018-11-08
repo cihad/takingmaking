@@ -1,5 +1,5 @@
 <template>
-  <div  class="row mb-5"
+  <div  class="row mb-4"
         v-on:mouseover="state.hover = !state.focus"
         v-on:mouseout="state.hover = false"
         v-on-clickaway="clickaway"
@@ -12,11 +12,11 @@
     <Blocks v-model="column.blocks" :size="column.colSize" v-for="(column, i) in value" />
 
     <div class="vtm toolbar btn-group" v-if="state.hover || state.focus">
-      <a href="#" class="btn btn-xs btn-success" v-on:click.prevent="addRow()">+ add row</a>
       <a href="#" class="btn btn-xs btn-success" v-on:click.prevent="addColumn()">+ add column</a>
       <a href="#" class="btn btn-xs btn-success handle">move</a>
     </div>
 
+    <a href="#" :class="{ active: state.focus }" class="add-row" v-on:click="addRow()" v-if="state.hover || state.focus">+</a>
   </div>
 </template>
 
@@ -81,15 +81,30 @@ export default {
       this.rows.splice(this.index + 1, 0, [{ colSize: 12, blocks: [] }])
     },
     addColumn() {
-      this.value.slice().reverse().forEach(block => {
-        if (block.colSize > 2) {
-          block.colSize -= 2
-          return
-        }
-      })
+      if (this.value.length >= 12) return
+
+      var arr = this.value.map(block => block.colSize)
+
+      var colSize = 1
+      var equalColumns = arr.every(n => arr[0] == n)
+
+      var regular = equalColumns && arr[0] > 3
+      var irregular = !regular
+
+      if (regular) {
+        colSize = 12 / (arr.length+1)
+        this.value.forEach(block => block.colSize = colSize)
+      } else {
+        this.value.slice().reverse().find(block => {
+          if (block.colSize > colSize) {
+            block.colSize -= colSize
+            return true
+          }
+        })
+      }
 
       this.value.push({
-        colSize: 2,
+        colSize: colSize,
         blocks: []
       })
     }
@@ -97,7 +112,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .row {
   position: relative;
   z-index: 1;
@@ -130,5 +145,27 @@ export default {
   right: -5px;
   display: flex !important;
   justify-content: flex-end;
+}
+
+.row > .add-row {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  margin-left: -10px;
+  text-align: center;
+  display: inline-block;
+  background-color: #b0e4bc;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 20px;
+  color:  white;
+}
+
+.row > .add-row:hover,
+.row > .add-row.active {
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
 }
 </style>

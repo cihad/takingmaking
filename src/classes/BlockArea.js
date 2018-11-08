@@ -4,7 +4,7 @@ const BlockArea = new Vue({
   data() {
     return {
       blocks: [],
-      rows: []
+      rows: [[{colSize:12, blocks: []}]]
     }
   },
   methods: {

@@ -5,20 +5,6 @@
       <Row v-for="(row, i) in rows" :key="uniqKey(row)" v-model="rows[i]" :rows="rows" :index="i" />
     </draggable>
 
-    <ul>
-      <li v-on:click="addRow(12)">12</li>
-      <li v-on:click="addRow(6,6)">6/6</li>
-      <li v-on:click="addRow(4,8)">4/8</li>
-      <li v-on:click="addRow(8,4)">8/4</li>
-      <li v-on:click="addRow(4,4,4)">4/4/4</li>
-    </ul>
-
-    <ul>
-      <draggable :list="Blocks.blocks" :options="{ group: {name: 'blocks', pull: 'clone', put: false}, sort: false }" :clone="clone">
-        <li v-for="block in Blocks.blocks">{{ block.humanName }}</li>
-      </draggable>
-    </ul>
-
     <popper trigger="click" :options="{placement: 'bottom'}">
       <div class="vtm card text-white bg-dark">
           <div class="card-header">
