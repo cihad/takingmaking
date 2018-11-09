@@ -12,13 +12,13 @@
     <Blocks v-model="column.blocks" :size="column.colSize" v-for="(column, i) in value" />
 
     <div class="vtm toolbar btn-group" v-if="state.hover || state.focus">
-      <a href="#" class="btn btn-xs btn-success" :class="{disabled: !canAddColumn}" v-on:click.prevent="addColumn()">+</a>
-      <a href="#" class="btn btn-xs btn-success" :class="{disabled: !canRemoveColumn}" v-on:click.prevent="removeColumn()">-</a>
       <a href="#" class="btn btn-xs btn-success"  v-on:click.prevent="removeRow()">remove</a>
       <a href="#" class="btn btn-xs btn-success handle">move</a>
     </div>
 
-    <a href="#" :class="{ active: state.focus }" class="add-row" v-on:click="addRow()" v-if="state.hover || state.focus">+</a>
+    <a href="#" :class="{disabled: !canAddColumn, active: state.focus}" class="add-column" v-on:click.prevent="addColumn()" v-if="state.hover || state.focus">+</a>
+    <a href="#" :class="{disabled: !canRemoveColumn, active: state.focus }" class="remove-column" v-on:click.prevent="removeColumn()" v-if="state.hover || state.focus">-</a>
+    <a href="#" :class="{active: state.focus }" class="add-row" v-on:click="addRow()" v-if="state.hover || state.focus">+</a>
   </div>
 </template>
 
@@ -177,14 +177,13 @@ export default {
   justify-content: flex-end;
 }
 
-.row > .add-row {
+.row > .add-row,
+.row > .add-column,
+.row > .remove-column {
   position: absolute;
-  bottom: -15px;
-  left: 50%;
-  margin-left: -10px;
   text-align: center;
-  display: inline-block;
   background-color: #b0e4bc;
+  display: inline-block;
   width: 20px;
   height: 20px;
   line-height: 20px;
@@ -192,8 +191,31 @@ export default {
   color:  white;
 }
 
-.row > .add-row:hover,
-.row > .add-row.active {
+
+.row > .add-row {
+  bottom: -15px;
+  left: 50%;
+  margin-left: -10px;
+}
+
+.row > .add-column {
+  top: 50%;
+  right: -15px;
+  margin-top: -10px;
+}
+
+.row > .remove-column {
+  top: 50%;
+  left: -15px;
+  margin-top: -10px;
+}
+
+.add-row:hover,
+.add-row.active,
+.add-column:hover,
+.add-column.active,
+.remove-column:hover,
+.remove-column.active {
   background-color: #28a745;
   color: white;
   text-decoration: none;
