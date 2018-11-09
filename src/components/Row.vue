@@ -12,7 +12,9 @@
     <Blocks v-model="column.blocks" :size="column.colSize" v-for="(column, i) in value" />
 
     <div class="vtm toolbar btn-group" v-if="state.hover || state.focus">
-      <a href="#" class="btn btn-xs btn-success" v-on:click.prevent="addColumn()">+ add column</a>
+      <a href="#" class="btn btn-xs btn-success" :class="{disabled: !canAddColumn}" v-on:click.prevent="addColumn()">+</a>
+      <a href="#" class="btn btn-xs btn-success" :class="{disabled: !canRemoveColumn}" v-on:click.prevent="removeColumn()">-</a>
+      <a href="#" class="btn btn-xs btn-success"  v-on:click.prevent="removeRow()">remove</a>
       <a href="#" class="btn btn-xs btn-success handle">move</a>
     </div>
 
@@ -107,6 +109,34 @@ export default {
         colSize: colSize,
         blocks: []
       })
+    },
+    removeColumn() {
+      if (this.value.length == 1) return
+
+      var arr = this.value.map(block => block.colSize)
+      var equalColumns = arr.every(n => arr[0] == n)
+      var regular = equalColumns && arr[0] >= 3
+      var irregular = !regular
+
+      if (regular) {
+        this.value.forEach(block => block.colSize = 12 / (arr.length-1))
+      } else {
+        var lng = this.value.length
+        this.value[lng - 2].colSize += this.value[lng - 1].colSize
+      }
+
+      this.value.splice(this.value.length - 1, 1)
+    },
+    removeRow() {
+      this.rows.splice(this.index, 1)
+    }
+  },
+  computed: {
+    canAddColumn() {
+      return this.value.length < 12
+    },
+    canRemoveColumn() {
+      return this.value.length > 1      
     }
   }
 }

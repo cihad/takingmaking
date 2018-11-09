@@ -1,7 +1,7 @@
 <template>
   <div class="main-wrapper" id="vtm">
 
-    <draggable :list="rows" :options="{ group: 'rows', handle: '.handle' }">
+    <draggable :list="rows" :options="{ group: 'rows', handle: '.handle', animation: 150 }">
       <Row v-for="(row, i) in rows" :key="uniqKey(row)" v-model="rows[i]" :rows="rows" :index="i" />
     </draggable>
 
