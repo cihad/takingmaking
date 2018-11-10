@@ -5,11 +5,12 @@
         v-on-clickaway="clickaway"
         v-on-click-child-block="clickaway"
         v-on:mousedown="state.focus = true"
-        v-on:click="state.hover = false">
+        v-on:click="state.hover = false"
+        :active="state.focus">
 
     <div class="handle" :class="{ hover: state.hover, active: state.focus }"></div>
 
-    <Blocks v-model="column.blocks" :size="column.colSize" v-for="(column, i) in value" />
+    <Blocks v-model="value[i]" :index='i' v-for="(column, i) in value" />
 
     <div class="vtm toolbar btn-group" v-if="state.hover || state.focus">
       <a href="#" class="btn btn-xs btn-success"  v-on:click.prevent="removeRow()">remove</a>
@@ -71,8 +72,12 @@ export default {
       state: {
         focus: false,
         hover: false,
+        width: null
       }
     }
+  },
+  mounted() {
+    this.width = this.$el.offsetWidth
   },
   methods: {
     clickaway() {

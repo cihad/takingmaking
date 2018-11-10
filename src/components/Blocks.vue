@@ -1,13 +1,17 @@
 <template>
-  <div :class="sizeClass">
-    <draggable :list="value" class="draggable-area" :class="{ 'no-block': value.length == 0 }" :options="{handle: '.handle', group: 'blocks', animation: 150 }">
-      <Block  v-for="(block, index) in value"
-              :index="index"
+  <div :class="sizeClass" class="column" :style="{ flexBasis: widthPx }">
+    <draggable  :list="value.blocks"
+                class="draggable-area"
+                :class="{ 'no-block': value.blocks.length == 0 }"
+                :options="{handle: '.handle', group: 'blocks', animation: 150 }">
+      <Block  v-for="(block, ind) in value.blocks"
+              :index="ind"
               :key="uniqKey(block)"
-              v-model="value[index]"
-              :blocks="value"
+              v-model="value.blocks[ind]"
+              :blocks="value.blocks"
               ref="block" />
     </draggable>
+    <resizable-handle v-if="!isLastCol()" v-on:step="step"></resizable-handle>
   </div>
 </template>
 
@@ -15,26 +19,35 @@
 import draggable from 'vuedraggable'
 import Block from "./Block"
 import Blocks from '../classes/Blocks';
+import ResizableHandle from '@/components/ResizableHandle';
 
 export default {
   props: { 
-    value: Array,
-    size: Number
+    value: Object,
+    index: Number
   },
   data() {
     return {
       Blocks: Blocks,
-      html: ""
+      html: "",
+      nextCol: null,
+      width: null
     }
   },
   components: {
-    Block, draggable
-  },
-  mounted() {
+    Block, draggable, ResizableHandle
   },
   methods: {
     addBlock(block) {
       this.value.push((new block()).blockObject)
+    },
+    isLastCol() {
+      return this.$parent.value.length - 1 == this.index
+    },
+    step(step) {
+      console.log(step) 
+      this.value.colSize += step
+      this.$parent.value[this.index + 1].colSize -= step
     }
   },
   watch: {
@@ -67,17 +80,19 @@ export default {
     sizeClass() {
       var str = "col"
 
-      if (this.size)
-        str += "-" + this.size
+      if (this.value.colSize)
+        str += "-" + this.value.colSize
 
       return str
+    },
+    widthPx() {
+      return this.width + "px"
     }
   }
 }
 </script>
 
 <style>
-
 .draggable-area.no-block {
   height: 50px;
 }
