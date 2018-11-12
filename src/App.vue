@@ -87,6 +87,10 @@ export default {
     text-align: left;
   }
 
+  .vtm.card {
+    z-index: 100
+  }
+
   .container {
     width: 900px;
   }

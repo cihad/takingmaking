@@ -27,7 +27,7 @@ export default {
 
 <style scoped>
 .vtm.card {
-  z-index: 10;
+  z-index: 100;
 }
 
 .card-options {
