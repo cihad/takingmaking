@@ -26,6 +26,10 @@ export default {
 </script>
 
 <style scoped>
+.vtm.card {
+  z-index: 10;
+}
+
 .card-options {
 	width: 200px !important;
 }

@@ -6,7 +6,7 @@
         v-on:mousedown.stop="state.focus = true"
         data-block>
 
-    <div class="handle" :class="{ hover: state.hover, active: state.focus }"></div>
+    <div class="handle" v-on:mousedown="state.showOptions=false" :class="{ hover: state.hover, active: state.focus }"></div>
 
     <div class="vtm toolbar btn-group" v-if="state.hover || state.focus">
       <a  href="#"
