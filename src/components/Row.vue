@@ -17,6 +17,7 @@
       <a href="#" class="btn btn-xs btn-success handle">move</a>
     </div>
 
+
     <a href="#" :class="{disabled: !canAddColumn, active: state.focus}" class="add-column" v-on:click.prevent="addColumn()" v-if="state.hover || state.focus">+</a>
     <a href="#" :class="{disabled: !canRemoveColumn, active: state.focus }" class="remove-column" v-on:click.prevent="removeColumn()" v-if="state.hover || state.focus">-</a>
     <a href="#" :class="{active: state.focus }" class="add-row" v-on:click="addRow()" v-if="state.hover || state.focus">+</a>

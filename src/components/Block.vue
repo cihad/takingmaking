@@ -32,10 +32,10 @@
       </a>
     </div>
 
-    <Tooltip :show="state.showOptions">
+    <Popup :show="state.showOptions">
       <component  :is="value.optionsName"
                   v-model="value" />
-    </Tooltip>
+    </Popup>
 
     <component  :is="value.viewName"
                 v-model="value"
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import Tooltip from './Tooltip';
+import Popup from './Popup';
 import { directive as onClickaway } from 'vue-clickaway';
 import Blocks from '@/classes/Blocks';
 
@@ -57,7 +57,7 @@ export default {
     value: Object
   },
   components: {
-    Tooltip
+    Popup
   },
   directives: { onClickaway },
   data() {
