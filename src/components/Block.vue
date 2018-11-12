@@ -26,6 +26,7 @@
 
       <a  href="#"
           class="btn btn-xs btn-primary handle"
+          v-on:mousedown="state.showOptions=false"
           :class="{ 'btn-light-blue': lightBlue }">
         move
       </a>
