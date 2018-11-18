@@ -12,7 +12,7 @@
           </div>
           <div class="list-group list-group-flush">
             <draggable :list="Blocks.blocks" :options="{ group: {name: 'blocks', pull: 'clone', put: false}, sort: false }" :clone="clone">
-              <a href="#" v-for="block in Blocks.blocks" class="list-group-item list-group-item-action" @click.prevent>{{ block.humanName }}</a>
+              <a href="#" v-for="block in Blocks.blocks" class="list-group-item list-group-item-action" @click.prevent v-on:dragstart="startDrag" :style="{ cursor: 'move' }">{{ block.humanName }}</a>
             </draggable>
           </div>
       </div>
@@ -25,6 +25,37 @@
       <pre>{{rows}}</pre>
     </details>
 
+    <div class="dragging-element" ref="draggingElement">BLOCK</div>
+
+    <OffCanvas :placement="placement" :active="showPanel">
+      <div class="card bg-dark">
+        <div class="card-header d-flex justify-content-between">
+          <strong>BLOCKS</strong> <span>{{ Blocks.blocks.length }}</span>
+        </div>
+        
+        <div class="list-group list-group-flush">
+          <draggable :list="Blocks.blocks" :options="{ group: {name: 'blocks', pull: 'clone', put: false}, sort: false }" :clone="clone">
+            <a href="#" v-for="block in Blocks.blocks" class="list-group-item list-group-item-action bg-dark text-white" @click.prevent v-on:dragstart="startDrag" :style="{ cursor: 'move' }">{{ block.humanName }}</a>
+          </draggable>
+        </div>    
+      </div>
+    </OffCanvas>
+
+
+    <select v-model="placement">
+      <option value="left">Left</option>
+      <option value="right">Right</option>
+    </select>
+    <br>
+    <input type="radio" id="one" :value="true" v-model="showPanel">
+    <label for="one">Show</label>
+    <br>
+    <input type="radio" id="two" :value="false" v-model="showPanel">
+    <label for="two">Hide</label>
+    <br>
+
+
+
   </div>
 </template>
 
@@ -36,17 +67,20 @@ import BlocksComponent from './components/Blocks.vue'
 import Blocks from '@/classes/Blocks'
 import BlockArea from '@/classes/BlockArea'
 import Row from '@/components/Row'
+import OffCanvas from '@/components/OffCanvas'
 
 export default {
   name: 'app',
   data() {
     return {
       Blocks: Blocks,
-      rows: BlockArea.rows
+      rows: BlockArea.rows,
+      placement: 'left',
+      showPanel: false
     }
   },
   components: {
-    Blocks: BlocksComponent, draggable, popper, Row
+    Blocks: BlocksComponent, draggable, popper, Row, OffCanvas
   },
   methods: {
     addRow(...rows) {
@@ -58,6 +92,10 @@ export default {
     },
     clone(block) {
       return (new block()).blockObject
+    },
+    startDrag(e) {
+      var div = this.$refs.draggingElement
+      e.dataTransfer.setDragImage(div, 45, 30);
     }
   },
   computed: {
@@ -101,6 +139,23 @@ export default {
     line-height: 1.5;
     border-radius: .15rem;
   }
+
+  .dragging-element {
+    background-color: #2aa9f4;
+    border: 1px solid #247b9c;
+    border-radius: 3px;
+    box-shadow: 0 4px 3px 0 rgba(0,0,0,.15);
+    color: #fff;
+    cursor: move;
+    height: 60px;
+    position: relative;
+    width: 90px;
+    z-index: 12;
+    text-align: center;
+    line-height: 60px;
+    transform: translateX(-9999px) 
+  }
+  
 
 
 }
