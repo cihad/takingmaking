@@ -29,7 +29,7 @@
           this.$emit('step', parseInt(diffX / this.colWidth))
         }
       },
-      resizeStopHandler(e) {
+      resizeStopHandler() {
         console.log('stop resize')
         this.resizing = false
         document.removeEventListener('mousemove', this.resizeHandler)

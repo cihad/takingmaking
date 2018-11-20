@@ -28,7 +28,7 @@ export default class TakingMaking {
   }
 
   // TODO
-  registerBlock(template) {
+  registerBlock() {
 
   }
 

@@ -34,8 +34,6 @@ class TMRow {
   }
 
   get blockObject() {
-    var _this = this
-
     return {
       name: "Row",
       viewName: TMRow.viewName,

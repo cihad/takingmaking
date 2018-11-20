@@ -52,7 +52,7 @@ export default {
   },
   watch: {
     blocks: {
-      handler: function(newBlocks) {
+      handler() {
         var _this = this;
 
         this.$nextTick(function() {

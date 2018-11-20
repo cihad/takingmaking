@@ -79,7 +79,7 @@ export default {
           if ((path ? path.indexOf(el) > 0 : el.contains(ev.target)) && ev.target.closest('[data-block]')) {
             return callback.call(vm, ev);
           }
-        };
+        }
         document.documentElement.addEventListener('click', clickHandler, false);
       }
     }
@@ -114,7 +114,6 @@ export default {
       var equalColumns = arr.every(n => arr[0] == n)
 
       var regular = equalColumns && arr[0] > 3
-      var irregular = !regular
 
       if (regular) {
         colSize = 12 / (arr.length+1)

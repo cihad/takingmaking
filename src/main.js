@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import uniqKey from '@/utils/uniqKey'
-import Blocks from '@/classes/Blocks'
 import TakingMaking from '@/classes/TakingMaking'
 
 Vue.mixin({
@@ -16,6 +15,6 @@ var tm = new TakingMaking({
   output: "#output" 
 })
 
-tm.changed(function(blocks) {
+tm.changed(function() {
   console.log('changed//////');
 })
