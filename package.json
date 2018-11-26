@@ -5,7 +5,7 @@
   "main": "./dist/TakingMaking.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name TakingMaking ./src/main.js",
+    "build": "vue-cli-service build --target lib --name TakingMaking ./src/classes/TakingMaking.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

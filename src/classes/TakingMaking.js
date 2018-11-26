@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import App from '../App.vue'
 import BlockArea from './BlockArea.js'
+import uniqKey from '@/mixins/uniqKey'
+
+Vue.mixin({
+  methods: { uniqKey }
+})
 
 export default class TakingMaking {
   constructor(config) {
