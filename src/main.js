@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import uniqKey from '@/utils/uniqKey'
+import uniqKey from '@/mixins/uniqKey'
 import TakingMaking from '@/classes/TakingMaking'
 
 Vue.mixin({
@@ -7,8 +7,6 @@ Vue.mixin({
 })
 
 Vue.config.productionTip = false
-
-window.TakingMaking = TakingMaking;
 
 var tm = new TakingMaking({
   selector: "#app",
@@ -18,3 +16,6 @@ var tm = new TakingMaking({
 tm.changed(function() {
   console.log('changed//////');
 })
+
+// window.TakingMaking = TakingMaking;
+export default TakingMaking
