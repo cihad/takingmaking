@@ -35,7 +35,7 @@
     <a  href="#"
         :class="{active: state.focus }"
         class="add-row"
-        v-on:click="addRow()"
+        v-on:click.prevent="addRow()"
         v-if="state.hover || state.focus"
         title="Add row">+</a>
   </div>
