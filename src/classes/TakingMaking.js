@@ -79,6 +79,15 @@ export default class TakingMaking {
       rows.push(rowObj)
     })
 
+    if (rows.length == 0) {
+      rows.push([
+        {
+          colSize: 12,
+          blocks: []
+        }
+      ])
+    }
+
     return rows;
   }
 }
