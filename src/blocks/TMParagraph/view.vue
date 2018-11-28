@@ -34,14 +34,18 @@ export default {
       this.$emit('blur')
     }
   },
-  computed: {
-    toS() {
-      let template = `
-<div style="font-size: ${this.value.options.fontSize}px">
-  ${this.value.content}
-</div>`
+  watch: {
+    value: {
+      handler() {
+        let template = `
+  <div style="font-size: ${this.value.options.fontSize}px" data-tm-block="TMParagraph">
+    ${this.value.content}
+  </div>`
 
-      return template
+        this.value.html = template
+        return template
+      },
+      deep: true
     }
   },
   data() {

@@ -21,15 +21,21 @@ export default class TakingMaking {
 
     var _this = this;
 
-    this.getBlocks()
+    var obj = this.getObject()
 
-    BlockArea.$on('blocksHtmlChanged', function(newHtml) {
+    BlockArea.rows.splice(0, BlockArea.rows.length, ...obj);
+
+    BlockArea.$on('htmlChanged', function(newHtml) {
       document.querySelector(_this.output).value = newHtml
     })
   }
 
   changed(callback) {
-    BlockArea.$on('blocksChanged', callback);
+    BlockArea.$on('changed', callback);
+  }
+
+  htmlChanged(callback) {
+    BlockArea.$on('htmlChanged', callback);
   }
 
   // TODO
@@ -37,21 +43,42 @@ export default class TakingMaking {
 
   }
 
-  getBlocks() {
+  getObject() {
     var html = document.querySelector(this.output).value
 
     var parser = new DOMParser();
     var doc = parser.parseFromString(html, "text/html");
 
-    doc.querySelectorAll("[data-tm-block]").forEach(block => {
-      var bName = block.getAttribute('data-tm-block')
+    var rows = []
+    
+    doc.querySelectorAll(".row").forEach(row => {
+      var rowObj = []
 
-      var blockClass = require(`@/blocks/${bName}/main`).default
-      var obj = new blockClass(block)
+      row.querySelectorAll("div[class^=col-]").forEach(col => {
+        
+        var colRegex = /^col-(\d+)$/
+        var colClass = [].find.call(col.classList, klass => colRegex.test(klass))
+        var colSize = colClass ? Number(colClass.match(colRegex)[1]) : 12
 
-      obj.addBlock()
+        var colObj = {
+          colSize: colSize,
+          blocks: []
+        }
+
+        col.querySelectorAll("[data-tm-block]").forEach(block => {
+          var bName = block.getAttribute('data-tm-block')
+
+          var blockClass = require(`@/blocks/${bName}/main`).default
+          var obj = new blockClass(block)
+          colObj.blocks.push(obj.blockObject)
+        })
+
+        rowObj.push(colObj)
+      })
+
+      rows.push(rowObj)
     })
 
-
+    return rows;
   }
 }

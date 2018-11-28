@@ -66,6 +66,7 @@ class TMParagraph {
       viewName: TMParagraph.viewName,
       optionsName: TMParagraph.optionsName,
       content: _this.kontent,
+      html: '',
       options: {
         fontSize: _this.fontSize,
       }

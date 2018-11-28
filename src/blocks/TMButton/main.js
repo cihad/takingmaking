@@ -60,6 +60,7 @@ class TMButton {
       optionsName: TMButton.optionsName,
       buttonText: _this.buttonText,
       buttonUrl: _this.buttonUrl,
+      html: '',
       options: {
         color: 'primary',
         outline: false,

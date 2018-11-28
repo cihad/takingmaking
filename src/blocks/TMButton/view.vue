@@ -32,15 +32,22 @@ export default {
       }
 
       return str
-    },
-    toS() {
+    }
+  },
+  watch: {
+    value: {
+      handler() {
       let template = `
-<div style="text-align: center;">
+<div style="text-align: center;" data-tm-block="TMButton">
   <a href="${this.value.buttonUrl}" class="btn ${this.buttonClass} ${this.blockClass}">
     ${this.value.buttonText}
   </a>
 </div>`
+
+      this.value.html = template
       return template
+      },
+      deep: true
     }
   },
   methods: {
