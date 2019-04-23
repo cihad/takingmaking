@@ -1,5 +1,5 @@
 <template>
-  <Row :key="uniqKey(this.value.content)" v-model="this.value.content" :rows="[this.value.content]" :index="0" />
+  <Row v-model="this.value.content" :rows="[this.value.content]" :index="0" />
 </template>
 
 <script>

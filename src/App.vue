@@ -2,7 +2,7 @@
   <div class="main-wrapper" id="vtm">
 
     <draggable :list="rows" :options="{ group: 'rows', handle: '.handle', animation: 150 }">
-      <Row v-for="(row, i) in rows" :key="uniqKey(row)" v-model="rows[i]" :rows="rows" :index="i" />
+      <Row v-for="(row, i) in rows" :key="i" v-model="rows[i]" :rows="rows" :index="i" />
     </draggable>
 
     <popper trigger="click" :options="{placement: 'bottom'}">
@@ -12,7 +12,7 @@
           </div>
           <div class="list-group list-group-flush">
             <draggable :list="Blocks.blocks" :options="{ group: {name: 'blocks', pull: 'clone', put: false}, sort: false }" :clone="clone">
-              <a href="#" v-for="block in Blocks.blocks" class="list-group-item list-group-item-action" @click.prevent v-on:dragstart="startDrag" :style="{ cursor: 'move' }">{{ block.humanName }}</a>
+              <a href="#" v-for="(block, i) in Blocks.blocks" :key="i" class="list-group-item list-group-item-action" @click.prevent v-on:dragstart="startDrag" :style="{ cursor: 'move' }">{{ block.humanName }}</a>
             </draggable>
           </div>
       </div>
@@ -35,7 +35,7 @@
         
         <div class="list-group list-group-flush">
           <draggable :list="Blocks.blocks" :options="{ group: {name: 'blocks', pull: 'clone', put: false}, sort: false }" :clone="clone">
-            <a href="#" v-for="block in Blocks.blocks" class="list-group-item list-group-item-action bg-dark text-white" @click.prevent v-on:dragstart="startDrag" :style="{ cursor: 'move' }">{{ block.humanName }}</a>
+            <a href="#" v-for="(block, i) in Blocks.blocks" :key="i" class="list-group-item list-group-item-action bg-dark text-white" @click.prevent v-on:dragstart="startDrag" :style="{ cursor: 'move' }">{{ block.humanName }}</a>
           </draggable>
         </div>    
       </div>
@@ -53,8 +53,6 @@
     <input type="radio" id="two" :value="false" v-model="showPanel">
     <label for="two">Hide</label>
     <br>
-
-
 
   </div>
 </template>
@@ -76,7 +74,7 @@ export default {
       Blocks: Blocks,
       rows: BlockArea.rows,
       placement: 'left',
-      showPanel: false
+      showPanel: true
     }
   },
   components: {

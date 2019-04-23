@@ -6,12 +6,12 @@
                 :options="{handle: '.handle', group: 'blocks', animation: 150 }">
       <Block  v-for="(block, ind) in value.blocks"
               :index="ind"
-              :key="uniqKey(block)"
+              :key="ind"
               v-model="value.blocks[ind]"
               :blocks="value.blocks"
               ref="block" />
     </draggable>
-    <resizable-handle v-if="!isLastCol()" v-on:step="step"></resizable-handle>
+    <resizable-handle v-if="!isLastCol()" v-on:step="step" v-on:width="changeWidth"></resizable-handle>
   </div>
 </template>
 
@@ -45,9 +45,12 @@ export default {
       return this.$parent.value.length - 1 == this.index
     },
     step(step) {
-      console.log(step) 
-      this.value.colSize += step
-      this.$parent.value[this.index + 1].colSize -= step
+      // console.log(step) 
+      // this.value.colSize += step
+      // this.$parent.value[this.index + 1].colSize -= step
+    },
+    changeWidth(diffX) {
+      
     }
   },
   watch: {
@@ -95,6 +98,8 @@ export default {
 <style>
 .draggable-area.no-block {
   height: 50px;
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23006dff' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .draggable-area.no-block:before {
@@ -107,7 +112,6 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ghostwhite;
   border-radius: 4px;
 }
 

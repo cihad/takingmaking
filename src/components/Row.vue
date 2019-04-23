@@ -10,7 +10,7 @@
 
     <div class="handle" :class="{ hover: state.hover, active: state.focus }"></div>
 
-    <Blocks v-model="value[i]" :index='i' v-for="(column, i) in value" />
+    <Blocks v-model="value[i]" :index='i' v-for="(column, i) in value" :key="i" />
 
     <div class="vtm toolbar btn-group" v-if="state.hover || state.focus">
       <a href="#" class="btn btn-xs btn-success"  v-on:click.prevent="removeRow()">remove</a>
@@ -18,12 +18,15 @@
     </div>
 
 
-    <a  href="#"
-        :class="{disabled: !canAddColumn, active: state.focus}"
-        class="add-column"
-        v-on:click.prevent="addColumn()"
-        v-if="state.hover || state.focus"
-        title="Add column">+</a>
+    <a
+      href="#"
+      :class="{disabled: !canAddColumn, active: state.focus}"
+      class="add-column"
+      v-on:click.prevent="addColumn()"
+      v-if="state.hover || state.focus"
+      title="Add column">
+      +
+    </a>
 
     <a  href="#"
         :class="{disabled: !canRemoveColumn, active: state.focus }"
@@ -209,7 +212,8 @@ export default {
   width: 20px;
   height: 20px;
   line-height: 20px;
-  border-radius: 20px;
+  border-radius: 3px;
+  border: none;
   color:  white;
 }
 

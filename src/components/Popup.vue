@@ -1,8 +1,6 @@
 <template>
-  <div class="vtm text-white bg-dark card card-options" v-show="show">
-    <div class="card-body">
-      <slot />
-    </div>
+  <div class="vtm text-white bg-dark card-options rounded" v-show="show">
+    <slot />
   </div>
 </template>
 
@@ -10,12 +8,10 @@
 import Popper from 'popper.js'
 
 export default {
-
   props: {
     show: Boolean,  
   },
   mounted() {
-
     new Popper(this.$parent.$el, this.$el, {
       placement: 'right-start'
     })
@@ -26,15 +22,9 @@ export default {
 </script>
 
 <style scoped>
-.vtm.card {
-  z-index: 100;
-}
-
 .card-options {
-	width: 200px !important;
-}
-
-.card-options > .card-body {
-	padding: .75rem !important;
+  z-index: 19;
+	width: 200px;
+  padding: .75rem;
 }
 </style>

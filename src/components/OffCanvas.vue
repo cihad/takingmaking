@@ -13,7 +13,7 @@ export default {
     },
     active: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   computed: {
@@ -26,7 +26,7 @@ export default {
 
 <style>
 .canvas-menu {
-  background-color: #;
+  background-color: #ccc;
   width: 200px;
   overflow: auto;
   height: 100%;

@@ -6,40 +6,35 @@
         v-on:mousedown.stop="state.focus = true"
         data-block>
 
-    <div class="control">
-      <div class="handle handle-top"></div>
-      <div class="handle handle-left"></div>
-      <div class="handle handle-right"></div>
-      <div class="handle handle-bottom"></div>
+    <div class="handle" v-on:mousedown="state.showOptions=false" :class="{ hover: state.hover, active: state.focus }"></div>
 
-      <div class="vtm toolbar btn-group" v-if="state.hover || state.focus">
-        <button
+    <div class="vtm toolbar btn-group" v-if="state.hover || state.focus">
+      <a  href="#"
           class="btn btn-xs btn-primary"
           :class="{ 'btn-light-blue': lightBlue }"
           v-on:click.prevent="remove">
-          <span>&#10005;</span>
-        </button>
+        <span>&#10005;</span>
+      </a>
 
-        <button
+      <a  href="#"
           class="btn btn-xs btn-primary"
           :class="{ 'btn-light-blue': lightBlue }"
           v-on:click.prevent="state.showOptions = !state.showOptions">
-          options
-        </button>
+        options
+      </a>
 
-        <button
+      <a  href="#"
           class="btn btn-xs btn-primary handle"
           v-on:mousedown="state.showOptions=false"
           :class="{ 'btn-light-blue': lightBlue }">
-          move
-        </button>
-      </div>
-
-      <Popup :show="state.showOptions">
-        <component  :is="value.optionsName"
-                    v-model="value" />
-      </Popup>
+        move
+      </a>
     </div>
+
+    <Popup :show="state.showOptions">
+      <component  :is="value.optionsName"
+                  v-model="value" />
+    </Popup>
 
     <component  :is="value.viewName"
                 v-model="value"
@@ -124,49 +119,17 @@ export default {
   position: relative;
 }
 
-.control {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-  outline: 1px solid red;
-}
-
-.control .handle {
-  pointer-events: all;
+.item > .handle {
   position: absolute;
   cursor: move;
-}
-
-.control .handle-top,
-.control .handle-bottom {
-  height: 10px;
-  left: 0;
-  right: 0;
-}
-
-.control .handle-top {
-  top: 0;
-}
-
-.control .handle-bottom {
-  bottom: 0;
-}
-
-.control .handle-left,
-.control .handle-right {
-  width: 10px;
-  top: 0;
-  bottom: 0;
-}
-
-.control .handle-left {
-  left: 0;
-}
-
-.control .handle-right {
-  right: 0;
+  bottom: -5px;
+  left: -5px;
+  right: -5px;
+  top: -5px;
+  margin: 0;
+  padding: 0;
+  outline: 1px solid transparent;
+  z-index: -1;
 }
 
 .item > .handle.active {
